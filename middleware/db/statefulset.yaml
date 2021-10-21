@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+  namespace: middleware
+  labels:
+    app: db
+spec:
+  serviceName: db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: db
+          image: 'public.ecr.aws/risken/middleware/db:latest'
+          env:
+            - name: TZ
+              value: Asia/Tokyo
+          ports:
+            - containerPort: 3306
+              name: db
+          volumeMounts:
+            - name: mimosa-db
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mimosa-db
+          persistentVolumeClaim: 
+            claimName: mimosa-db-pvc

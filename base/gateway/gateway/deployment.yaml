@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  namespace: gateway
+  labels:
+    app: gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      serviceAccountName: gateway
+      containers:
+        - name: gateway
+          image: 'public.ecr.aws/risken/gateway/gateway:latest'
+          resources:
+            limits:
+              memory: 400Mi
+              cpu: 200m
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          ports:
+            - containerPort: 8000
+              name: gateway
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'TRUE'
+            - name: AWS_XRAY_CONTEXT_MISSING
+              value: 'LOG_ERROR'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/gateway/gateway'

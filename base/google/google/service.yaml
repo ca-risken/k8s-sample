@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: google
+  namespace: google
+  labels:
+    app: google
+spec:
+  clusterIP: None
+  selector:
+    app: google
+  ports:
+    - name: google
+      protocol: TCP
+      port: 11001
+      targetPort: 11001

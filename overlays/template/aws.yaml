@@ -1,0 +1,202 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws
+  namespace: aws
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: aws
+          image: 'public.ecr.aws/risken/aws/aws:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-aws-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accessanalyzer
+  namespace: aws
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: accessanalyzer
+          image: 'public.ecr.aws/risken/aws/access-analyzer:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-accessanalyzer-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminchecker
+  namespace: aws
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: adminchecker
+          image: 'public.ecr.aws/risken/aws/admin-checker:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-adminchecker-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudsploit
+  namespace: aws
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: cloudsploit
+          image: 'public.ecr.aws/risken/aws/cloudsploit:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-cloudsploit-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guardduty
+  namespace: aws
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: guardduty
+          image: 'public.ecr.aws/risken/aws/guard-duty:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-guardduty-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portscan
+  namespace: aws
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: portscan
+          image: 'public.ecr.aws/risken/aws/portscan:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-portscan-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: activity
+  namespace: aws
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: activity
+          image: 'public.ecr.aws/risken/aws/activity:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-activity-properties
+
+---
+$patch: delete
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: aws-cronjob
+  namespace: aws

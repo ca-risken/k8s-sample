@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: activity
+  namespace: aws
+  labels:
+    app: activity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: activity
+  template:
+    metadata:
+      labels:
+        app: activity
+    spec:
+      serviceAccountName: aws
+      containers:
+        - name: activity
+          image: 'public.ecr.aws/risken/aws/activity:latest'
+          resources:
+            limits:
+              memory: 400Mi
+              cpu: 200m
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          ports:
+            - containerPort: 9007
+              name: activity
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'TRUE'
+            - name: AWS_XRAY_CONTEXT_MISSING
+              value: 'LOG_ERROR'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/aws/activity'

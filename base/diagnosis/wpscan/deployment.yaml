@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wpscan
+  namespace: diagnosis
+  labels:
+    app: wpscan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wpscan
+  template:
+    metadata:
+      labels:
+        app: wpscan
+    spec:
+      serviceAccountName: diagnosis
+      containers:
+        - name: wpscan
+          image: 'public.ecr.aws/risken/diagnosis/wpscan:latest'
+          resources:
+            limits:
+              memory: 800Mi
+              cpu: 800m
+            requests:
+              memory: 600Mi
+              cpu: 600m
+          ports:
+            - containerPort: 19003
+              name: wpscan
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'TRUE'
+            - name: AWS_XRAY_CONTEXT_MISSING
+              value: 'LOG_ERROR'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/diagnosis/wpscan'

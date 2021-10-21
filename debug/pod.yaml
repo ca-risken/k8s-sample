@@ -1,0 +1,24 @@
+# pod for debug
+# ex)
+# create pod) kubectl apply -f debug/pod.yaml 
+# debug)      kubectl -ncore exec -it debug -- sh 
+# delete pod) kubectl delete -f debug/pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug
+  namespace: core
+spec:
+  containers:
+  - name: debug
+    image: alpine:3.12
+    command: ["/bin/sh","-c"]
+    # 最後、終了しないように無限ループさせておく
+    args: 
+      - apk add --no-cache mysql-client wget;
+        cd /tmp;
+        wget -q https://github.com/fullstorydev/grpcurl/releases/download/v1.8.2/grpcurl_1.8.2_linux_arm64.tar.gz;
+        tar xvfz grpcurl_1.8.2_linux_arm64.tar.gz;
+        mv grpcurl /usr/local/bin/;
+        rm /tmp/*;
+        while true; do sleep 100; done

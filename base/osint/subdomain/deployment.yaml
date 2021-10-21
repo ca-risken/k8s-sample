@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subdomain
+  namespace: osint
+  labels:
+    app: subdomain
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: subdomain
+  template:
+    metadata:
+      labels:
+        app: subdomain
+    spec:
+      serviceAccountName: osint
+      containers:
+        - name: subdomain
+          image: 'public.ecr.aws/risken/osint/subdomain:latest'
+          resources:
+            limits:
+              memory: 2048Mi
+              cpu: 1
+            requests:
+              memory: 1536Mi
+              cpu: 800m
+          ports:
+            - containerPort: 18083
+              name: subdomain
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'TRUE'
+            - name: AWS_XRAY_CONTEXT_MISSING
+              value: 'LOG_ERROR'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/osint/subdomain'

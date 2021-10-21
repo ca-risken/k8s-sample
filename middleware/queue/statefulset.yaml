@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: queue
+  namespace: middleware
+  labels:
+    app: queue
+spec:
+  serviceName: queue
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queue
+  template:
+    metadata:
+      labels:
+        app: queue
+    spec:
+      containers:
+        - name: queue
+          image: 'public.ecr.aws/risken/queue:latest'
+          ports:
+            - containerPort: 9324
+              name: queue
+            - containerPort: 9325
+              name: stats

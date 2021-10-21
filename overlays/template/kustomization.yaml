@@ -1,0 +1,132 @@
+commonLabels:
+  env: local
+commonAnnotations:
+  note: local
+bases:
+  - ../../base
+  - ../../middleware
+patchesStrategicMerge:
+  - amazon-cloudwatch.yaml
+  - aws-observability.yaml
+  - gateway.yaml
+  - core.yaml
+  - aws.yaml
+  - osint.yaml
+  - diagnosis.yaml
+  - code.yaml
+  - google.yaml
+  - middleware.yaml
+
+configMapGenerator:
+- name: aws-aws-properties
+  envs: 
+    - properties/aws_aws.properties
+  namespace: aws
+- name: aws-accessanalyzer-properties
+  envs: 
+    - properties/aws_accessanalyzer.properties
+  namespace: aws
+- name: aws-adminchecker-properties
+  envs: 
+    - properties/aws_adminchecker.properties
+  namespace: aws
+- name: aws-cloudsploit-properties
+  envs: 
+    - properties/aws_cloudsploit.properties
+  namespace: aws
+- name: aws-guardduty-properties
+  envs: 
+    - properties/aws_guardduty.properties
+  namespace: aws
+- name: aws-portscan-properties
+  envs: 
+    - properties/aws_portscan.properties
+  namespace: aws
+- name: aws-activity-properties
+  envs: 
+    - properties/aws_activity.properties
+  namespace: aws
+- name: code-code-properties
+  envs: 
+    - properties/code_code.properties
+  namespace: code
+- name: code-gitleaks-properties
+  envs: 
+    - properties/code_gitleaks.properties
+  namespace: code
+- name: code-gitleaks-full-scan-properties
+  envs: 
+    - properties/code_gitleaks_full_scan.properties
+  namespace: code
+- name: core-alert-properties
+  envs: 
+    - properties/core_alert.properties
+  namespace: core
+- name: core-finding-properties
+  envs: 
+    - properties/core_finding.properties
+  namespace: core
+- name: core-iam-properties
+  envs: 
+    - properties/core_iam.properties
+  namespace: core
+- name: core-project-properties
+  envs: 
+    - properties/core_project.properties
+  namespace: core
+- name: core-report-properties
+  envs: 
+    - properties/core_report.properties
+  namespace: core
+- name: diagnosis-diagnosis-properties
+  envs: 
+    - properties/diagnosis_diagnosis.properties
+  namespace: diagnosis
+- name: diagnosis-jira-properties
+  envs: 
+    - properties/diagnosis_jira.properties
+  namespace: diagnosis
+- name: diagnosis-wpscan-properties
+  envs: 
+    - properties/diagnosis_wpscan.properties
+  namespace: diagnosis
+- name: diagnosis-portscan-properties
+  envs: 
+    - properties/diagnosis_portscan.properties
+  namespace: diagnosis
+- name: diagnosis-applicationscan-properties
+  envs: 
+    - properties/diagnosis_applicationscan.properties
+  namespace: diagnosis
+- name: google-google-properties
+  envs: 
+    - properties/google_google.properties
+  namespace: google
+- name: google-asset-properties
+  envs: 
+    - properties/google_asset.properties
+  namespace: google
+- name: google-cloudsploit-properties
+  envs: 
+    - properties/google_cloudsploit.properties
+  namespace: google
+- name: google-portscan-properties
+  envs: 
+    - properties/google_portscan.properties
+  namespace: google
+- name: google-scc-properties
+  envs: 
+    - properties/google_scc.properties
+  namespace: google
+- name: gateway-gateway-properties
+  envs: 
+    - properties/gateway_gateway.properties
+  namespace: gateway
+- name: osint-osint-properties
+  envs: 
+    - properties/osint_osint.properties
+  namespace: osint
+- name: osint-subdomain-properties
+  envs: 
+    - properties/osint_subdomain.properties
+  namespace: osint

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws
+  namespace: aws
+  labels:
+    app: aws
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aws
+  template:
+    metadata:
+      labels:
+        app: aws
+    spec:
+      serviceAccountName: aws
+      containers:
+        - name: aws
+          image: 'public.ecr.aws/risken/aws/aws:latest'
+          resources:
+            limits:
+              memory: 200Mi
+              cpu: 100m
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          ports:
+            - containerPort: 9001
+              name: aws
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'TRUE'
+            - name: AWS_XRAY_CONTEXT_MISSING
+              value: 'LOG_ERROR'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/aws/aws'

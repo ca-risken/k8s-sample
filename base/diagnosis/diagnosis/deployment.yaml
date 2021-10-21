@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diagnosis
+  namespace: diagnosis
+  labels:
+    app: diagnosis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: diagnosis
+  template:
+    metadata:
+      labels:
+        app: diagnosis
+    spec:
+      serviceAccountName: diagnosis
+      containers:
+        - name: diagnosis
+          image: 'public.ecr.aws/risken/diagnosis/diagnosis:latest'
+          resources:
+            limits:
+              memory: 400Mi
+              cpu: 200m
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          ports:
+            - containerPort: 19001
+              name: diagnosis
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'TRUE'
+            - name: AWS_XRAY_CONTEXT_MISSING
+              value: 'LOG_ERROR'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/diagnosis/diagnosis'

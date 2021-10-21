@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  namespace: gateway
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: gateway
+          image: 'public.ecr.aws/risken/gateway/gateway:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: gateway-gateway-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: gateway
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: web
+          image: 'public.ecr.aws/risken/gateway/web:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m

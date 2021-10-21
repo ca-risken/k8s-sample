@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: report
+  namespace: core
+  labels:
+    app: report
+spec:
+  clusterIP: None
+  selector:
+    app: report
+  ports:
+    - name: report
+      protocol: TCP
+      port: 8005
+      targetPort: 8005

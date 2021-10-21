@@ -1,0 +1,36 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: google-cronjob
+  namespace: google
+  labels:
+    app: google
+spec:
+  # The time zone must be set in UTC.(For JST, set +0900)
+  # @see https://kubernetes.io/ja/docs/concepts/workloads/controllers/cron-jobs/ 
+  schedule: "20 17 * * *" 
+  jobTemplate:
+    metadata:
+      labels:
+        app: google
+    spec:
+      template:
+        spec:
+          serviceAccountName: google
+          containers:
+          - name: google-cronjob
+            image: alpine
+            resources:
+              limits:
+                memory: 400Mi
+                cpu: 200m
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: ["sh", "-c"]
+            args:
+            - cd /tmp;
+              wget -q https://github.com/fullstorydev/grpcurl/releases/download/v1.8.2/grpcurl_1.8.2_linux_arm64.tar.gz;
+              tar xvfz grpcurl_1.8.2_linux_arm64.tar.gz;
+              /tmp/grpcurl -plaintext google.google.svc.cluster.local:11001 google.google.GoogleService.InvokeScanAll;
+          restartPolicy: Never

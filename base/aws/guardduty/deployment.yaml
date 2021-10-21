@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guardduty
+  namespace: aws
+  labels:
+    app: guardduty
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guardduty
+  template:
+    metadata:
+      labels:
+        app: guardduty
+    spec:
+      serviceAccountName: aws
+      containers:
+        - name: guardduty
+          image: 'public.ecr.aws/risken/aws/guardduty:latest'
+          resources:
+            limits:
+              memory: 400Mi
+              cpu: 200m
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          ports:
+            - containerPort: 9002
+              name: guardduty
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'TRUE'
+            - name: AWS_XRAY_CONTEXT_MISSING
+              value: 'LOG_ERROR'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/aws/guardduty'

@@ -1,0 +1,10 @@
+resources:
+  # middleware
+  - namespace.yaml
+  - db/pv.yaml
+  - db/service.yaml
+  - db/statefulset.yaml
+  - queue/service.yaml
+  - queue/statefulset.yaml
+  - ingress/ingress.yaml
+  - ingress/ingress-nginx.yaml

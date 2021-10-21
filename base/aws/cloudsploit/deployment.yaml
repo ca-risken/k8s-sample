@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudsploit
+  namespace: aws
+  labels:
+    app: cloudsploit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudsploit
+  template:
+    metadata:
+      labels:
+        app: cloudsploit
+    spec:
+      serviceAccountName: aws
+      containers:
+        - name: cloudsploit
+          image: 'public.ecr.aws/risken/aws/cloudsploit:latest'
+          resources:
+            limits:
+              memory: 600Mi
+              cpu: 1
+            requests:
+              memory: 400Mi
+              cpu: 600m
+          ports:
+            - containerPort: 9005
+              name: cloudsploit
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'TRUE'
+            - name: AWS_XRAY_CONTEXT_MISSING
+              value: 'LOG_ERROR'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/aws/cloudsploit'

@@ -1,0 +1,15 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: aws-logging
+  namespace: aws-observability
+  labels:
+data:
+  output.conf: |
+    [OUTPUT]
+        Name cloudwatch_logs
+        Match   *
+        region region-code-here
+        log_group_name log-gourp-name
+        log_stream_prefix from-fluent-bit-
+        auto_create_group On

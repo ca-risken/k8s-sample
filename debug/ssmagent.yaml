@@ -1,0 +1,41 @@
+# Install SSM Agent on Amazon EKS worker nodes by using Kubernetes DaemonSet
+# kubectl apply -f ssmagent.yaml && sleep 60 && kubectl delete -f ssmagent.yaml
+# source: https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/install-ssm-agent-on-amazon-eks-worker-nodes-by-using-kubernetes-daemonset.html
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    k8s-app: ssm-installer
+  name: ssm-installer
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      k8s-app: ssm-installer
+  template:
+    metadata:
+      labels:
+        k8s-app: ssm-installer    
+    spec:
+      containers:
+      - image: amazonlinux
+        imagePullPolicy: Always
+        name: ssm
+        command: ["/bin/bash"]
+        args: ["-c","echo '* * * * * root yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm & rm -rf /etc/cron.d/ssmstart' > /etc/cron.d/ssmstart"]
+        securityContext:
+          allowPrivilegeEscalation: true
+        volumeMounts:
+        - mountPath: /etc/cron.d
+          name: cronfile    
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      volumes:
+      - name: cronfile
+        hostPath:
+          path: /etc/cron.d
+          type: Directory  
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30

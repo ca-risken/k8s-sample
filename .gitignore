@@ -1,0 +1,7 @@
+.DS_Store
+.perman-aws-vault
+.idea/
+
+# for local
+overlays/local/*
+genarate_confimap_properties.sh

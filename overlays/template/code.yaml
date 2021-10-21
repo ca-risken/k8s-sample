@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code
+  namespace: code
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: code
+          image: 'public.ecr.aws/risken/code/code:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: code-code-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitleaks
+  namespace: code
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: gitleaks
+          image: 'public.ecr.aws/risken/code/gitleaks:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: code-gitleaks-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitleaks-full-scan
+  namespace: code
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: gitleaks-full-scan
+          image: 'public.ecr.aws/risken/code/gitleaks:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: code-gitleaks-full-scan-properties
+
+---
+$patch: delete
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: code-cronjob
+  namespace: code
