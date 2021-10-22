@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: diagnosis
-  namespace: diagnosis
+  name: aws
+  namespace: aws
   labels:
     version: "latest"
 spec:
@@ -10,8 +10,8 @@ spec:
   template:
     spec:
       containers:
-        - name: diagnosis
-          image: 'public.ecr.aws/risken/diagnosis/diagnosis:latest'
+        - name: aws
+          image: 'public.ecr.aws/risken/aws/aws:latest'
           resources:
             requests:
               memory: 200Mi
@@ -23,14 +23,14 @@ spec:
               value: ''
           envFrom:
           - configMapRef:
-              name: diagnosis-diagnosis-properties
+              name: aws-aws-properties
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jira
-  namespace: diagnosis
+  name: accessanalyzer
+  namespace: aws
   labels:
     version: "latest"
 spec:
@@ -38,8 +38,8 @@ spec:
   template:
     spec:
       containers:
-        - name: jira
-          image: 'public.ecr.aws/risken/diagnosis/jira:latest'
+        - name: accessanalyzer
+          image: 'public.ecr.aws/risken/aws/access-analyzer:latest'
           resources:
             requests:
               memory: 200Mi
@@ -51,14 +51,14 @@ spec:
               value: ''
           envFrom:
           - configMapRef:
-              name: diagnosis-jira-properties
+              name: aws-accessanalyzer-properties
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wpscan
-  namespace: diagnosis
+  name: adminchecker
+  namespace: aws
   labels:
     version: "latest"
 spec:
@@ -66,8 +66,8 @@ spec:
   template:
     spec:
       containers:
-        - name: wpscan
-          image: 'public.ecr.aws/risken/diagnosis/wpscan:latest'
+        - name: adminchecker
+          image: 'public.ecr.aws/risken/aws/admin-checker:latest'
           resources:
             requests:
               memory: 200Mi
@@ -79,14 +79,70 @@ spec:
               value: ''
           envFrom:
           - configMapRef:
-              name: diagnosis-wpscan-properties
+              name: aws-adminchecker-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudsploit
+  namespace: aws
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: cloudsploit
+          image: 'public.ecr.aws/risken/aws/cloudsploit:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-cloudsploit-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guardduty
+  namespace: aws
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: guardduty
+          image: 'public.ecr.aws/risken/aws/guard-duty:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-guardduty-properties
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: portscan
-  namespace: diagnosis
+  namespace: aws
   labels:
     version: "latest"
 spec:
@@ -95,7 +151,7 @@ spec:
     spec:
       containers:
         - name: portscan
-          image: 'public.ecr.aws/risken/diagnosis/portscan:latest'
+          image: 'public.ecr.aws/risken/aws/portscan:latest'
           resources:
             requests:
               memory: 200Mi
@@ -107,24 +163,23 @@ spec:
               value: ''
           envFrom:
           - configMapRef:
-              name: diagnosis-portscan-properties
+              name: aws-portscan-properties
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: applicationscan
-  namespace: diagnosis
+  name: activity
+  namespace: aws
   labels:
     version: "latest"
 spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: diagnosis
       containers:
-        - name: applicationscan
-          image: 'public.ecr.aws/risken/diagnosis/applicationscan:latest'
+        - name: activity
+          image: 'public.ecr.aws/risken/aws/activity:latest'
           resources:
             requests:
               memory: 200Mi
@@ -136,12 +191,12 @@ spec:
               value: ''
           envFrom:
           - configMapRef:
-              name: diagnosis-applicationscan-properties
+              name: aws-activity-properties
 
 ---
 $patch: delete
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: diagnosis-cronjob
-  namespace: diagnosis
+  name: aws-cronjob
+  namespace: aws

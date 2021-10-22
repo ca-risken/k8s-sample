@@ -45,11 +45,10 @@ spec:
   type: ExternalName
   externalName: web.gateway.svc.cluster.local
 
-
 ---
 apiVersion: v1
 data:
-  x-amzn-oidc-identity: "alice"
+  x-amzn-oidc-identity: "fixed-user-sub"
 kind: ConfigMap
 metadata:
   name: custom-headers

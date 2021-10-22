@@ -1,0 +1,148 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: google
+  namespace: google
+  labels:
+    version: "latest"
+spec:
+  replicas: 0
+  template:
+    spec:
+      containers:
+        - name: google
+          image: 'public.ecr.aws/risken/google/google:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asset
+  namespace: google
+  labels:
+    version: "latest"
+spec:
+  replicas: 0
+  template:
+    spec:
+      containers:
+        - name: asset
+          image: 'public.ecr.aws/risken/google/asset:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudsploit
+  namespace: google
+  labels:
+    version: "latest"
+spec:
+  replicas: 0
+  template:
+    spec:
+      containers:
+        - name: cloudsploit
+          image: 'public.ecr.aws/risken/google/cloudsploit:latest'
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scc
+  namespace: google
+  labels:
+    version: "latest"
+spec:
+  replicas: 0
+  template:
+    spec:
+      containers:
+        - name: scc
+          image: 'public.ecr.aws/risken/google/scc:latest'
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              memory: 50Mi
+              cpu: 50m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portscan
+  namespace: google
+  labels:
+    version: "latest"
+spec:
+  replicas: 0
+  template:
+    spec:
+      containers:
+        - name: portscan
+          image: 'public.ecr.aws/risken/google/portscan:latest'
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''

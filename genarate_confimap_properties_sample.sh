@@ -2,7 +2,7 @@
 # Init local
 ##################################################
 LOCAL_DIR="overlays/local"
-TEMPLATE_DIR="overlays/template"
+TEMPLATE_DIR="overlays/local-template"
 mkdir -p $LOCAL_DIR
 cp -n $TEMPLATE_DIR/* $LOCAL_DIR/
 

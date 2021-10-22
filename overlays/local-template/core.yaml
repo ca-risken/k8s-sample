@@ -1,0 +1,162 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alert
+  namespace: core
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: alert
+          image: 'public.ecr.aws/risken/core/alert:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: core-alert-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finding
+  namespace: core
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: finding
+          image: 'public.ecr.aws/risken/core/finding:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: core-finding-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iam
+  namespace: core
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: iam
+          image: 'public.ecr.aws/risken/core/iam:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: core-iam-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project
+  namespace: core
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: project
+          image: 'public.ecr.aws/risken/core/project:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: core-project-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: report
+  namespace: core
+  labels:
+    version: "latest"
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: report
+          image: 'public.ecr.aws/risken/core/report:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: core-report-properties
+
+---
+$patch: delete
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: iam-cronjob
+  namespace: core
+
+---
+$patch: delete
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: alert-cronjob
+  namespace: core
+
+---
+$patch: delete
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: report-cronjob
+  namespace: core

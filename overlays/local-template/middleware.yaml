@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+  namespace: middleware
+  labels:
+    app: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: db
+          image: 'public.ecr.aws/risken/middleware/db:latest'
+          args: ["--character-set-server=utf8mb4", "--general-log-file=/var/lib/mysql/general.log", "--general-log=1"]
+          resources:
+            requests:
+              memory: 300Mi
+              cpu: 100m
+          volumeMounts:
+            - name: mimosa-db
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mimosa-db
+          persistentVolumeClaim: 
+            claimName: mimosa-db-pvc
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: queue
+  namespace: middleware
+  labels:
+    app: queue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queue
+  template:
+    metadata:
+      labels:
+        app: queue
+    spec:
+      containers:
+        - name: queue
+          image: 'public.ecr.aws/risken/middleware/queue:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m

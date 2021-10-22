@@ -19,11 +19,14 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
-          envFrom:
-          - configMapRef:
-              name: aws-aws-properties
 
 ---
 apiVersion: apps/v1
@@ -47,11 +50,14 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
-          envFrom:
-          - configMapRef:
-              name: aws-accessanalyzer-properties
 
 ---
 apiVersion: apps/v1
@@ -75,11 +81,14 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
-          envFrom:
-          - configMapRef:
-              name: aws-adminchecker-properties
 
 ---
 apiVersion: apps/v1
@@ -103,11 +112,14 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
-          envFrom:
-          - configMapRef:
-              name: aws-cloudsploit-properties
 
 ---
 apiVersion: apps/v1
@@ -131,11 +143,14 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
-          envFrom:
-          - configMapRef:
-              name: aws-guardduty-properties
 
 ---
 apiVersion: apps/v1
@@ -159,11 +174,14 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
-          envFrom:
-          - configMapRef:
-              name: aws-portscan-properties
 
 ---
 apiVersion: apps/v1
@@ -187,16 +205,11 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'FALSE'
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: 'xray-service.amazon-cloudwatch:2000'
+            - name: ENV_NAME
+              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
-          envFrom:
-          - configMapRef:
-              name: aws-activity-properties
-
----
-$patch: delete
-apiVersion: batch/v1beta1
-kind: CronJob
-metadata:
-  name: aws-cronjob
-  namespace: aws

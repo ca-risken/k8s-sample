@@ -1,0 +1,18 @@
+commonLabels:
+  env: local
+commonAnnotations:
+  note: local
+bases:
+  - ../../base
+  - ../../middleware
+patchesStrategicMerge:
+  - amazon-cloudwatch.yaml
+  - aws-observability.yaml
+  - gateway.yaml
+  - core.yaml
+  - aws.yaml
+  - osint.yaml
+  - diagnosis.yaml
+  - code.yaml
+  - google.yaml
+  - middleware.yaml

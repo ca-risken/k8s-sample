@@ -87,4 +87,17 @@ local-delete: local-switch
 
 .PHONY: local-db
 local-db: local-switch
-	kubectl -n db exec -it db-0 -- mysql -uroot -Dmimosa --default-character-set=utf8
+	kubectl -n middleware exec -it db-0 -- mysql -uroot -Dmimosa --default-character-set=utf8
+
+## EKS #############################################
+.PHONY: eks-build
+eks-build:
+	kustomize build overlays/eks
+
+.PHONY: eks-apply
+eks-apply: eks-build
+	kustomize build overlays/eks | kubectl apply -f -
+
+.PHONY: eks-delete
+eks-delete:
+	kustomize build overlays/eks | kubectl delete -f -
