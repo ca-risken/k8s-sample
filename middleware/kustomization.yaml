@@ -6,5 +6,3 @@ resources:
   - db/statefulset.yaml
   - queue/service.yaml
   - queue/statefulset.yaml
-  - ingress/ingress.yaml
-  - ingress/ingress-nginx.yaml

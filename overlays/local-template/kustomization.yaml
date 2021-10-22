@@ -5,6 +5,7 @@ commonAnnotations:
 bases:
   - ../../base
   - ../../middleware
+  - ../../ingress-nginx
 patchesStrategicMerge:
   - amazon-cloudwatch.yaml
   - aws-observability.yaml
