@@ -9,6 +9,7 @@ spec:
   replicas: 0
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: code
           image: 'public.ecr.aws/risken/code/code:latest'
@@ -40,6 +41,7 @@ spec:
   replicas: 0
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: gitleaks
           image: 'public.ecr.aws/risken/code/gitleaks:latest'
@@ -71,6 +73,7 @@ spec:
   replicas: 0
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: gitleaks-full-scan
           image: 'public.ecr.aws/risken/code/gitleaks:latest'
@@ -89,3 +92,11 @@ spec:
               value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
+
+---
+$patch: delete
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: code
+  namespace: code

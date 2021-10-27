@@ -9,6 +9,7 @@ spec:
   replicas: 1
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: gateway
           image: 'public.ecr.aws/risken/gateway/gateway:latest'
@@ -40,6 +41,7 @@ spec:
   replicas: 1
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: web
           image: 'public.ecr.aws/risken/gateway/web:latest'
@@ -47,3 +49,11 @@ spec:
             requests:
               memory: 200Mi
               cpu: 100m
+
+---
+$patch: delete
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gateway
+  namespace: gateway

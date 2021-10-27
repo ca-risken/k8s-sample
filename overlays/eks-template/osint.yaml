@@ -9,6 +9,7 @@ spec:
   replicas: 1
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: osint
           image: 'public.ecr.aws/risken/osint/osint:latest'
@@ -40,6 +41,7 @@ spec:
   replicas: 1
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: subdomain
           image: 'public.ecr.aws/risken/osint/subdomain:latest'
@@ -58,3 +60,11 @@ spec:
               value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
+
+---
+$patch: delete
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: osint
+  namespace: osint

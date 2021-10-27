@@ -9,6 +9,7 @@ spec:
   replicas: 0
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: google
           image: 'public.ecr.aws/risken/google/google:latest'
@@ -40,6 +41,7 @@ spec:
   replicas: 0
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: asset
           image: 'public.ecr.aws/risken/google/asset:latest'
@@ -71,6 +73,7 @@ spec:
   replicas: 0
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: cloudsploit
           image: 'public.ecr.aws/risken/google/cloudsploit:latest'
@@ -98,6 +101,7 @@ spec:
   replicas: 0
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: scc
           image: 'public.ecr.aws/risken/google/scc:latest'
@@ -132,6 +136,7 @@ spec:
   replicas: 0
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: portscan
           image: 'public.ecr.aws/risken/google/portscan:latest'
@@ -146,3 +151,11 @@ spec:
               value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
+
+---
+$patch: delete
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: google
+  namespace: google

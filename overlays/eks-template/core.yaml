@@ -9,6 +9,7 @@ spec:
   replicas: 1
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: alert
           image: 'public.ecr.aws/risken/core/alert:latest'
@@ -40,6 +41,7 @@ spec:
   replicas: 1
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: finding
           image: 'public.ecr.aws/risken/core/finding:latest'
@@ -71,6 +73,7 @@ spec:
   replicas: 1
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: iam
           image: 'public.ecr.aws/risken/core/iam:latest'
@@ -102,6 +105,7 @@ spec:
   replicas: 1
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: project
           image: 'public.ecr.aws/risken/core/project:latest'
@@ -133,6 +137,7 @@ spec:
   replicas: 1
   template:
     spec:
+      serviceAccountName: ''
       containers:
         - name: report
           image: 'public.ecr.aws/risken/core/report:latest'
@@ -151,3 +156,11 @@ spec:
               value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
+
+---
+$patch: delete
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: core
+  namespace: core

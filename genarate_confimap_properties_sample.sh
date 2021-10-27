@@ -22,17 +22,24 @@ DB_SLAVE_HOST=db.middleware.svc.cluster.local
 DB_SLAVE_USER=hoge
 DB_SLAVE_PASSWORD=moge
 
-## AWS SESSION
-AWS_REGION=ap-northeast-1
-### Load form env
+## AWS SESSION (**do not commit credential**)
+AWS_REGION=$AWS_REGION
 AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN
-
-### Set fixed value (dummy **dont commit credential**)
-# AWS_ACCESS_KEY_ID=xxx
-# AWS_SECRET_ACCESS_KEY=xxx
-# AWS_SESSION_TOKEN=xxx
+### If not set aws session, set dummy data.
+if [ -z "$AWS_REGION" ]; then
+  AWS_REGION=ap-northeast-1
+fi
+if [ -z "$AWS_ACCESS_KEY_ID" ]; then
+  AWS_ACCESS_KEY_ID=dummy
+fi
+if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
+  AWS_SECRET_ACCESS_KEY=dummy
+fi
+if [ -z "$AWS_SESSION_TOKEN" ]; then
+  AWS_SESSION_TOKEN=dummy
+fi
 
 # Service spcific options
 ## Diagnosis

@@ -131,11 +131,3 @@ spec:
           envFrom:
           - configMapRef:
               name: google-portscan-properties
-
----
-$patch: delete
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: google-cronjob
-  namespace: google
