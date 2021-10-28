@@ -6,7 +6,7 @@ metadata:
   labels:
     version: "latest"
 spec:
-  replicas: 1
+  replicas: 0
   template:
     spec:
       containers:
@@ -34,7 +34,7 @@ metadata:
   labels:
     version: "latest"
 spec:
-  replicas: 1
+  replicas: 0
   template:
     spec:
       containers:
@@ -62,7 +62,7 @@ metadata:
   labels:
     version: "latest"
 spec:
-  replicas: 1
+  replicas: 0
   template:
     spec:
       containers:
@@ -86,7 +86,7 @@ metadata:
   labels:
     version: "latest"
 spec:
-  replicas: 1
+  replicas: 0
   template:
     spec:
       containers:
@@ -117,7 +117,7 @@ metadata:
   labels:
     version: "latest"
 spec:
-  replicas: 1
+  replicas: 0
   template:
     spec:
       containers:
