@@ -136,3 +136,27 @@ spec:
           envFrom:
           - configMapRef:
               name: core-report-properties
+
+---
+$patch: delete
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: alert-cronjob
+  namespace: core
+
+---
+$patch: delete
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: iam-cronjob
+  namespace: core
+
+---
+$patch: delete
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: report-cronjob
+  namespace: core

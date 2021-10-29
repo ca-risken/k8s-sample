@@ -80,3 +80,11 @@ spec:
           envFrom:
           - configMapRef:
               name: code-gitleaks-full-scan-properties
+
+---
+$patch: delete
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: code-cronjob
+  namespace: code

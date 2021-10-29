@@ -52,3 +52,11 @@ spec:
           envFrom:
           - configMapRef:
               name: osint-subdomain-properties
+
+---
+$patch: delete
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: osint-cronjob
+  namespace: osint

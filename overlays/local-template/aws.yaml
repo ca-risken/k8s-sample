@@ -192,3 +192,11 @@ spec:
           envFrom:
           - configMapRef:
               name: aws-activity-properties
+
+---
+$patch: delete
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: aws-cronjob
+  namespace: aws

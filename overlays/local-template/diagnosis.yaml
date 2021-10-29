@@ -137,3 +137,11 @@ spec:
           envFrom:
           - configMapRef:
               name: diagnosis-applicationscan-properties
+
+---
+$patch: delete
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: diagnosis-cronjob
+  namespace: diagnosis
