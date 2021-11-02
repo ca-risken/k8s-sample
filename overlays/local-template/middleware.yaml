@@ -56,3 +56,29 @@ spec:
             requests:
               memory: 200Mi
               cpu: 100m
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: metabase
+  name: metabase
+  namespace: middleware
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: metabase
+  template:
+    spec:
+      containers:
+      - name: metabase
+        image: metabase/metabase:latest
+        resources:
+          limits:
+            memory: 800Mi
+            cpu: 200m
+          requests:
+            memory: 400Mi
+            cpu: 100m

@@ -4,5 +4,6 @@ resources:
   - db/pv.yaml
   - db/service.yaml
   - db/statefulset.yaml
+  - db/metabase.yaml
   - queue/service.yaml
   - queue/statefulset.yaml
