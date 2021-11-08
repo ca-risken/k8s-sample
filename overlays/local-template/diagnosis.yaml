@@ -29,34 +29,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jira
-  namespace: diagnosis
-  labels:
-    version: "latest"
-spec:
-  replicas: 0
-  template:
-    spec:
-      containers:
-        - name: jira
-          image: 'public.ecr.aws/risken/diagnosis/jira:latest'
-          resources:
-            requests:
-              memory: 200Mi
-              cpu: 100m
-          env:
-            - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
-            - name: ENV_INJECTOR_META_CONFIG
-              value: ''
-          envFrom:
-          - configMapRef:
-              name: diagnosis-jira-properties
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: wpscan
   namespace: diagnosis
   labels:
