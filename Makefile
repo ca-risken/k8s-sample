@@ -35,7 +35,6 @@ pull-image:
 	@sleep 1 && docker pull public.ecr.aws/risken/core/project:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/core/report:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/diagnosis:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/jira:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/wpscan:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/portscan:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/applicationscan:latest

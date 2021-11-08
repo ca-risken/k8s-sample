@@ -83,10 +83,6 @@ configMapGenerator:
   envs: 
     - properties/diagnosis_diagnosis.properties
   namespace: diagnosis
-- name: diagnosis-jira-properties
-  envs: 
-    - properties/diagnosis_jira.properties
-  namespace: diagnosis
 - name: diagnosis-wpscan-properties
   envs: 
     - properties/diagnosis_wpscan.properties
