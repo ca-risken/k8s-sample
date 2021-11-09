@@ -66,7 +66,6 @@ resources:
   - code/code/deployment.yaml
   - code/code/cronjob.yaml
   - code/gitleaks/deployment.yaml
-  - code/gitleaks-full-scan/deployment.yaml
 
   # google
   - google/namespace.yaml

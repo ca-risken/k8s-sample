@@ -53,10 +53,6 @@ configMapGenerator:
   envs: 
     - properties/code_gitleaks.properties
   namespace: code
-- name: code-gitleaks-full-scan-properties
-  envs: 
-    - properties/code_gitleaks_full_scan.properties
-  namespace: code
 - name: core-alert-properties
   envs: 
     - properties/core_alert.properties
