@@ -2,17 +2,6 @@ resources:
   # global
   - priority.yaml
 
-  # amazon-cloudwatch
-  - amazon-cloudwatch/namespace.yaml
-  - amazon-cloudwatch/serviceaccount.yaml
-  - amazon-cloudwatch/configmap.yaml
-  - amazon-cloudwatch/daemonset.yaml
-  - amazon-cloudwatch/deployment.yaml
-  
-  # aws-observability
-  - aws-observability/namespace.yaml
-  - aws-observability/configmap.yaml
-
   # gateway
   - gateway/namespace.yaml
   - gateway/serviceaccount.yaml

@@ -6,8 +6,6 @@ bases:
   - ../../base
   - ../../middleware
 patchesStrategicMerge:
-  - amazon-cloudwatch.yaml
-  - aws-observability.yaml
   - gateway.yaml
   - core.yaml
   - aws.yaml
