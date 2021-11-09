@@ -1,7 +1,7 @@
 commonLabels:
-  env: local
+  env: eks
 commonAnnotations:
-  note: local
+  note: eks
 bases:
   - ../../base
   - ../../middleware
