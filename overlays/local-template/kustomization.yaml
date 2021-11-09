@@ -7,8 +7,6 @@ bases:
   - ../../middleware
   - ../../ingress-nginx
 patchesStrategicMerge:
-  - amazon-cloudwatch.yaml
-  - aws-observability.yaml
   - gateway.yaml
   - core.yaml
   - aws.yaml
@@ -54,10 +52,6 @@ configMapGenerator:
 - name: code-gitleaks-properties
   envs: 
     - properties/code_gitleaks.properties
-  namespace: code
-- name: code-gitleaks-full-scan-properties
-  envs: 
-    - properties/code_gitleaks_full_scan.properties
   namespace: code
 - name: core-alert-properties
   envs: 

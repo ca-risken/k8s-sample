@@ -2,17 +2,6 @@ resources:
   # global
   - priority.yaml
 
-  # amazon-cloudwatch
-  - amazon-cloudwatch/namespace.yaml
-  - amazon-cloudwatch/serviceaccount.yaml
-  - amazon-cloudwatch/configmap.yaml
-  - amazon-cloudwatch/daemonset.yaml
-  - amazon-cloudwatch/deployment.yaml
-  
-  # aws-observability
-  - aws-observability/namespace.yaml
-  - aws-observability/configmap.yaml
-
   # gateway
   - gateway/namespace.yaml
   - gateway/serviceaccount.yaml
@@ -77,7 +66,6 @@ resources:
   - code/code/deployment.yaml
   - code/code/cronjob.yaml
   - code/gitleaks/deployment.yaml
-  - code/gitleaks-full-scan/deployment.yaml
 
   # google
   - google/namespace.yaml

@@ -1,3 +1,8 @@
+bases:
+  - ./nginx-controller
+
 resources:
-  - ingress-nginx.yaml
   - ingress.yaml
+
+patchesStrategicMerge:
+  - custom-header.yaml

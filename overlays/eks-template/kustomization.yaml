@@ -1,13 +1,11 @@
 commonLabels:
-  env: local
+  env: eks
 commonAnnotations:
-  note: local
+  note: eks
 bases:
   - ../../base
   - ../../middleware
 patchesStrategicMerge:
-  - amazon-cloudwatch.yaml
-  - aws-observability.yaml
   - gateway.yaml
   - core.yaml
   - aws.yaml
