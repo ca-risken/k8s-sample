@@ -20,12 +20,6 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
-            - name: AWS_XRAY_SDK_DISABLED
-              value: 'FALSE'
-            - name: AWS_XRAY_DAEMON_ADDRESS
-              value: 'xray-service.amazon-cloudwatch:2000'
-            - name: ENV_NAME
-              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
 
@@ -52,12 +46,6 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
-            - name: AWS_XRAY_SDK_DISABLED
-              value: 'FALSE'
-            - name: AWS_XRAY_DAEMON_ADDRESS
-              value: 'xray-service.amazon-cloudwatch:2000'
-            - name: ENV_NAME
-              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
 
@@ -84,12 +72,6 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
-            - name: AWS_XRAY_SDK_DISABLED
-              value: 'FALSE'
-            - name: AWS_XRAY_DAEMON_ADDRESS
-              value: 'xray-service.amazon-cloudwatch:2000'
-            - name: ENV_NAME
-              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
 
@@ -116,12 +98,6 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
-            - name: AWS_XRAY_SDK_DISABLED
-              value: 'FALSE'
-            - name: AWS_XRAY_DAEMON_ADDRESS
-              value: 'xray-service.amazon-cloudwatch:2000'
-            - name: ENV_NAME
-              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
 
@@ -148,12 +124,6 @@ spec:
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
-            - name: AWS_XRAY_SDK_DISABLED
-              value: 'FALSE'
-            - name: AWS_XRAY_DAEMON_ADDRESS
-              value: 'xray-service.amazon-cloudwatch:2000'
-            - name: ENV_NAME
-              value: 'eks'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
 
