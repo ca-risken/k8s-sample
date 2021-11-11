@@ -1,3 +1,15 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: mimosa-db
+  namespace: middleware
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: io1
+  iopsPerGB: "10"
+  fsType: ext4
+
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
