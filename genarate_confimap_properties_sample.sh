@@ -37,9 +37,6 @@ fi
 if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
   AWS_SECRET_ACCESS_KEY=dummy
 fi
-if [ -z "$AWS_SESSION_TOKEN" ]; then
-  AWS_SESSION_TOKEN=dummy
-fi
 
 # Service spcific options
 ## Diagnosis
