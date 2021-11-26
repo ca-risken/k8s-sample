@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website
+  namespace: osint
+  labels:
+    app: website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: website
+  template:
+    metadata:
+      labels:
+        app: website
+    spec:
+      serviceAccountName: osint
+      containers:
+        - name: website
+          image: 'public.ecr.aws/risken/osint/website:latest'
+          resources:
+            limits:
+              memory: 300Mi
+              cpu: 200m
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          ports:
+            - containerPort: 18084
+              name: website
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'TRUE'
+            - name: AWS_XRAY_CONTEXT_MISSING
+              value: 'LOG_ERROR'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/osint/website'
