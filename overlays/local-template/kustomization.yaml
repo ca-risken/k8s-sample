@@ -121,3 +121,7 @@ configMapGenerator:
   envs: 
     - properties/osint_subdomain.properties
   namespace: osint
+- name: osint-website-properties
+  envs: 
+    - properties/osint_website.properties
+  namespace: osint

@@ -48,6 +48,7 @@ resources:
   - osint/osint/deployment.yaml
   - osint/osint/cronjob.yaml
   - osint/subdomain/deployment.yaml
+  - osint/website/deployment.yaml
 
   # diagnosis
   - diagnosis/namespace.yaml

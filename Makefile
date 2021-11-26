@@ -49,6 +49,7 @@ pull-image:
 	@sleep 1 && docker pull public.ecr.aws/risken/middleware/queue:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/osint/osint:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/osint/subdomain:latest
+	@sleep 1 && docker pull public.ecr.aws/risken/osint/website:latest
 
 ## local #############################################
 .PHONY: local-switch
