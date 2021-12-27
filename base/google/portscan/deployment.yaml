@@ -1,34 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: scc
+  name: portscan
   namespace: google
   labels:
-    app: scc
+    app: portscan
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: scc
+      app: portscan
   template:
     metadata:
       labels:
-        app: scc
+        app: portscan
     spec:
       serviceAccountName: google
       containers:
-        - name: scc
-          image: 'public.ecr.aws/risken/google/scc:latest'
+        - name: portscan
+          image: 'public.ecr.aws/risken/google/portscan:latest'
           resources:
             limits:
-              memory: 800Mi
-              cpu: 1
+              memory: 400Mi
+              cpu: 200m
             requests:
-              memory: 500Mi
-              cpu: 600m
+              memory: 200Mi
+              cpu: 100m
           ports:
-            - containerPort: 11004
-              name: scc
+            - containerPort: 11005
+              name: portscan
           env:
             - name: AWS_DEFAULT_REGION
               value: 'region-code'
@@ -37,4 +37,4 @@ spec:
             - name: AWS_XRAY_CONTEXT_MISSING
               value: 'LOG_ERROR'
             - name: ENV_INJECTOR_META_CONFIG
-              value: '/env/meta/google/scc'
+              value: '/env/meta/google/portscan'
