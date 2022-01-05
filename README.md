@@ -34,7 +34,7 @@ $ make local-apply
 
 ### On EKS
 
-The detailed flow can be found [here](http://docs.security-hub.jp/admin/infra_aws/)
+The detailed flow can be found [here](https://docs.security-hub.jp/admin/infra_aws/)
 
 1. Create EKS cluster & Node group
 2. Create ALB & Set OIDC Authentication
