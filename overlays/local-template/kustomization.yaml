@@ -17,10 +17,30 @@ patchesStrategicMerge:
   - middleware.yaml
 
 configMapGenerator:
-- name: aws-aws-properties
-  envs: 
-    - properties/aws_aws.properties
-  namespace: aws
+- name: core-alert-properties
+  envs:
+    - properties/core_alert.properties
+  namespace: core
+- name: core-finding-properties
+  envs:
+    - properties/core_finding.properties
+  namespace: core
+- name: core-iam-properties
+  envs:
+    - properties/core_iam.properties
+  namespace: core
+- name: core-project-properties
+  envs:
+    - properties/core_project.properties
+  namespace: core
+- name: core-report-properties
+  envs:
+    - properties/core_report.properties
+  namespace: core
+- name: core-datasource-api-properties
+  envs:
+    - properties/core_datasource_api.properties
+  namespace: core
 - name: aws-accessanalyzer-properties
   envs: 
     - properties/aws_accessanalyzer.properties
@@ -45,38 +65,10 @@ configMapGenerator:
   envs: 
     - properties/aws_activity.properties
   namespace: aws
-- name: code-code-properties
-  envs: 
-    - properties/code_code.properties
-  namespace: code
 - name: code-gitleaks-properties
   envs: 
     - properties/code_gitleaks.properties
   namespace: code
-- name: core-alert-properties
-  envs: 
-    - properties/core_alert.properties
-  namespace: core
-- name: core-finding-properties
-  envs: 
-    - properties/core_finding.properties
-  namespace: core
-- name: core-iam-properties
-  envs: 
-    - properties/core_iam.properties
-  namespace: core
-- name: core-project-properties
-  envs: 
-    - properties/core_project.properties
-  namespace: core
-- name: core-report-properties
-  envs: 
-    - properties/core_report.properties
-  namespace: core
-- name: diagnosis-diagnosis-properties
-  envs: 
-    - properties/diagnosis_diagnosis.properties
-  namespace: diagnosis
 - name: diagnosis-wpscan-properties
   envs: 
     - properties/diagnosis_wpscan.properties
@@ -89,10 +81,6 @@ configMapGenerator:
   envs: 
     - properties/diagnosis_applicationscan.properties
   namespace: diagnosis
-- name: google-google-properties
-  envs: 
-    - properties/google_google.properties
-  namespace: google
 - name: google-asset-properties
   envs: 
     - properties/google_asset.properties
@@ -113,10 +101,6 @@ configMapGenerator:
   envs: 
     - properties/gateway_gateway.properties
   namespace: gateway
-- name: osint-osint-properties
-  envs: 
-    - properties/osint_osint.properties
-  namespace: osint
 - name: osint-subdomain-properties
   envs: 
     - properties/osint_subdomain.properties

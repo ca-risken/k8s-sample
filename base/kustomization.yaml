@@ -1,7 +1,4 @@
 resources:
-  # global
-  - priority.yaml
-
   # gateway
   - gateway/namespace.yaml
   - gateway/serviceaccount.yaml
@@ -13,26 +10,13 @@ resources:
   # core
   - core/namespace.yaml
   - core/serviceaccount.yaml
-  - core/finding/service.yaml
-  - core/finding/deployment.yaml
-  - core/iam/service.yaml
-  - core/iam/deployment.yaml
-  - core/iam/cronjob.yaml
-  - core/project/service.yaml
-  - core/project/deployment.yaml
-  - core/alert/cronjob.yaml
-  - core/alert/service.yaml
-  - core/alert/deployment.yaml
-  - core/report/cronjob.yaml
-  - core/report/service.yaml
-  - core/report/deployment.yaml
+  - core/cronjob.yaml
+  - core/service.yaml
+  - core/deployment.yaml
 
   # aws
   - aws/namespace.yaml
   - aws/serviceaccount.yaml
-  - aws/aws/service.yaml
-  - aws/aws/deployment.yaml
-  - aws/aws/cronjob.yaml
   - aws/guardduty/deployment.yaml
   - aws/accessanalyzer/deployment.yaml
   - aws/adminchecker/deployment.yaml
@@ -44,18 +28,12 @@ resources:
   # osint
   - osint/namespace.yaml
   - osint/serviceaccount.yaml
-  - osint/osint/service.yaml
-  - osint/osint/deployment.yaml
-  - osint/osint/cronjob.yaml
   - osint/subdomain/deployment.yaml
   - osint/website/deployment.yaml
 
   # diagnosis
   - diagnosis/namespace.yaml
   - diagnosis/serviceaccount.yaml
-  - diagnosis/diagnosis/service.yaml
-  - diagnosis/diagnosis/deployment.yaml
-  - diagnosis/diagnosis/cronjob.yaml
   - diagnosis/wpscan/deployment.yaml
   - diagnosis/portscan/deployment.yaml
   - diagnosis/applicationscan/deployment.yaml
@@ -63,17 +41,11 @@ resources:
   # code
   - code/namespace.yaml
   - code/serviceaccount.yaml
-  - code/code/service.yaml
-  - code/code/deployment.yaml
-  - code/code/cronjob.yaml
   - code/gitleaks/deployment.yaml
 
   # google
   - google/namespace.yaml
   - google/serviceaccount.yaml
-  - google/google/service.yaml
-  - google/google/deployment.yaml
-  - google/google/cronjob.yaml
   - google/asset/deployment.yaml
   - google/cloudsploit/deployment.yaml
   - google/scc/deployment.yaml

@@ -1,131 +1,73 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: alert
+  name: core
   namespace: core
   labels:
-    version: "latest"
+    version: 'latest'
 spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
       containers:
-        - name: alert
-          image: 'public.ecr.aws/risken/core/alert:latest'
+        - name: core
+          image: 'public.ecr.aws/risken/risken-core:latest'
+          imagePullPolicy: Never
           resources:
-            requests:
-              memory: 200Mi
+            limits:
               cpu: 100m
+              memory: 100Mi
+            requests:
+              memory: 50Mi
+              cpu: 50m
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
+          envFrom:
+            - configMapRef:
+                name: core-alert-properties
+            - configMapRef:
+                name: core-finding-properties
+            - configMapRef:
+                name: core-iam-properties
+            - configMapRef:
+                name: core-project-properties
+            - configMapRef:
+                name: core-report-properties
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: finding
+  name: datasource-api
   namespace: core
   labels:
-    version: "latest"
+    version: 'latest'
 spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
       containers:
-        - name: finding
-          image: 'public.ecr.aws/risken/core/finding:latest'
+        - name: datasource-api
+          image: 'public.ecr.aws/risken/risken-datasource-api:latest'
+          imagePullPolicy: Never
           resources:
-            requests:
-              memory: 200Mi
+            limits:
               cpu: 100m
+              memory: 100Mi
+            requests:
+              memory: 50Mi
+              cpu: 50m
           env:
             - name: AWS_DEFAULT_REGION
               value: 'ap-northeast-1'
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: iam
-  namespace: core
-  labels:
-    version: "latest"
-spec:
-  replicas: 1
-  template:
-    spec:
-      serviceAccountName: ''
-      containers:
-        - name: iam
-          image: 'public.ecr.aws/risken/core/iam:latest'
-          resources:
-            requests:
-              memory: 200Mi
-              cpu: 100m
-          env:
-            - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
-            - name: ENV_INJECTOR_META_CONFIG
-              value: ''
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: project
-  namespace: core
-  labels:
-    version: "latest"
-spec:
-  replicas: 1
-  template:
-    spec:
-      serviceAccountName: ''
-      containers:
-        - name: project
-          image: 'public.ecr.aws/risken/core/project:latest'
-          resources:
-            requests:
-              memory: 200Mi
-              cpu: 100m
-          env:
-            - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
-            - name: ENV_INJECTOR_META_CONFIG
-              value: ''
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: report
-  namespace: core
-  labels:
-    version: "latest"
-spec:
-  replicas: 1
-  template:
-    spec:
-      serviceAccountName: ''
-      containers:
-        - name: report
-          image: 'public.ecr.aws/risken/core/report:latest'
-          resources:
-            requests:
-              memory: 200Mi
-              cpu: 100m
-          env:
-            - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
-            - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+          envFrom:
+            - configMapRef:
+                name: core-datasource-api-properties
 
 ---
 $patch: delete

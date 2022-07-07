@@ -21,20 +21,14 @@ debug-pod:
 .PHONY: pull-image
 pull-image:
 	docker pull public.ecr.aws/risken/aws/access-analyzer:latest
+	@sleep 1 && docker pull public.ecr.aws/risken/risken-core:latest
+	@sleep 1 && docker pull public.ecr.aws/risken/risken-datasource-api:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/aws/admin-checker:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/aws/aws:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/aws/cloudsploit:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/aws/guard-duty:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/aws/portscan:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/aws/activity:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/code/code:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/code/gitleaks:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/core/alert:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/core/finding:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/core/iam:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/core/project:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/core/report:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/diagnosis:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/wpscan:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/portscan:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/applicationscan:latest
@@ -42,12 +36,10 @@ pull-image:
 	@sleep 1 && docker pull public.ecr.aws/risken/gateway/web:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/google/asset:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/google/cloudsploit:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/google/google:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/google/portscan:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/google/scc:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/middleware/db:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/middleware/queue:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/osint/osint:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/osint/subdomain:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/osint/website:latest
 

@@ -1,34 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: osint
-  namespace: osint
-  labels:
-    version: "latest"
-spec:
-  replicas: 1
-  template:
-    spec:
-      containers:
-        - name: osint
-          image: 'public.ecr.aws/risken/osint/osint:latest'
-          resources:
-            requests:
-              memory: 200Mi
-              cpu: 100m
-          env:
-            - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
-            - name: ENV_INJECTOR_META_CONFIG
-              value: ''
-          envFrom:
-          - configMapRef:
-              name: osint-osint-properties
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: subdomain
   namespace: osint
   labels:
@@ -80,11 +52,3 @@ spec:
           envFrom:
           - configMapRef:
               name: osint-website-properties
-
----
-$patch: delete
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: osint-cronjob
-  namespace: osint

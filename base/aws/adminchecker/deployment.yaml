@@ -38,3 +38,11 @@ spec:
               value: 'LOG_ERROR'
             - name: ENV_INJECTOR_META_CONFIG
               value: '/env/meta/aws/adminchecker'
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+               - all
