@@ -1,34 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: diagnosis
-  namespace: diagnosis
-  labels:
-    version: "latest"
-spec:
-  replicas: 1
-  template:
-    spec:
-      containers:
-        - name: diagnosis
-          image: 'public.ecr.aws/risken/diagnosis/diagnosis:latest'
-          resources:
-            requests:
-              memory: 200Mi
-              cpu: 100m
-          env:
-            - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
-            - name: ENV_INJECTOR_META_CONFIG
-              value: ''
-          envFrom:
-          - configMapRef:
-              name: diagnosis-diagnosis-properties
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: wpscan
   namespace: diagnosis
   labels:
@@ -109,11 +81,3 @@ spec:
           envFrom:
           - configMapRef:
               name: diagnosis-applicationscan-properties
-
----
-$patch: delete
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: diagnosis-cronjob
-  namespace: diagnosis

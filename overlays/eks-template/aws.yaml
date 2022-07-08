@@ -1,32 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aws
-  namespace: aws
-  labels:
-    version: "latest"
-spec:
-  replicas: 1
-  template:
-    spec:
-      serviceAccountName: ''
-      containers:
-        - name: aws
-          image: 'public.ecr.aws/risken/aws/aws:latest'
-          resources:
-            requests:
-              memory: 200Mi
-              cpu: 100m
-          env:
-            - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
-            - name: ENV_INJECTOR_META_CONFIG
-              value: ''
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: accessanalyzer
   namespace: aws
   labels:
