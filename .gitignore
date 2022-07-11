@@ -6,3 +6,4 @@
 overlays/local/*
 overlays/eks/*
 genarate_confimap_properties.sh
+data/

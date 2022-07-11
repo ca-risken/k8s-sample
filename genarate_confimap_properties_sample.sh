@@ -6,6 +6,18 @@ TEMPLATE_DIR="overlays/local-template"
 mkdir -p $LOCAL_DIR
 cp -n $TEMPLATE_DIR/* $LOCAL_DIR/
 
+export PV_HOST_PATH=$(cd $(dirname $0);pwd)/data/mysql
+cat <<EOF > overlays/local/pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mimosa-db
+  namespace: middleware
+spec:
+  hostPath:
+    path: ${PV_HOST_PATH}
+EOF
+
 ##################################################
 # Service options
 ##################################################
