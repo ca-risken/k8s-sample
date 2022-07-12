@@ -15,6 +15,7 @@ patchesStrategicMerge:
   - code.yaml
   - google.yaml
   - middleware.yaml
+  - pv.yaml
 
 configMapGenerator:
 - name: core-alert-properties
