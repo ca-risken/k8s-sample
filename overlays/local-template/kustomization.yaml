@@ -70,6 +70,10 @@ configMapGenerator:
   envs: 
     - properties/code_gitleaks.properties
   namespace: code
+- name: code-dependency-properties
+  envs: 
+    - properties/code_dependency.properties
+  namespace: code
 - name: diagnosis-wpscan-properties
   envs: 
     - properties/diagnosis_wpscan.properties

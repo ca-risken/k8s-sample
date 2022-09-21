@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dependency
+  namespace: code
+  labels:
+    app: dependency
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dependency
+  template:
+    metadata:
+      labels:
+        app: dependency
+    spec:
+      serviceAccountName: code
+      containers:
+        - name: dependency
+          image: 'public.ecr.aws/risken/code/dependency:latest'
+          resources:
+            limits:
+              memory: 400Mi
+              cpu: 1
+            requests:
+              memory: 200Mi
+              cpu: 600m
+          ports:
+            - containerPort: 10003
+              name: dependency
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: AWS_XRAY_SDK_DISABLED
+              value: 'TRUE'
+            - name: AWS_XRAY_CONTEXT_MISSING
+              value: 'LOG_ERROR'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/code/dependency'
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+               - all

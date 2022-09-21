@@ -42,6 +42,7 @@ resources:
   - code/namespace.yaml
   - code/serviceaccount.yaml
   - code/gitleaks/deployment.yaml
+  - code/dependency/deployment.yaml
 
   # google
   - google/namespace.yaml
