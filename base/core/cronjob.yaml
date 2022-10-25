@@ -210,7 +210,7 @@ spec:
             - cd /tmp;
               wget -q https://github.com/fullstorydev/grpcurl/releases/download/v1.8.2/grpcurl_1.8.2_linux_arm64.tar.gz;
               tar xvfz grpcurl_1.8.2_linux_arm64.tar.gz;
-              /tmp/grpcurl -plaintext datasource-api.core.svc.cluster.local:8081 datasource.code.CodeService.InvokeScanAllGitleaks;
+              /tmp/grpcurl -plaintext datasource-api.core.svc.cluster.local:8081 datasource.code.CodeService.InvokeScanAll;
             securityContext:
               runAsUser: 1000
               runAsGroup: 1000
