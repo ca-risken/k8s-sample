@@ -70,7 +70,8 @@ spec:
 ---
 apiVersion: v1
 data:
-  x-amzn-oidc-identity: "fixed-user-sub"
+  x-amzn-oidc-identity: 'alice'
+  x-amzn-oidc-data: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGljZSIsInVzZXJuYW1lIjoiYWxpY2UiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhbGljZSJ9Cg==.iTH5EiE4epl0p7bw-8-x2kpURFZsYibqPQCtrOx52OY'
 kind: ConfigMap
 metadata:
   name: custom-headers
