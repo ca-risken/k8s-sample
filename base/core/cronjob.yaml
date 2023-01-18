@@ -358,3 +358,47 @@ spec:
                 drop:
                 - all
           restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: purge-datasource-cronjob
+  namespace: core
+  labels:
+    app: purge-datasource
+spec:
+  schedule: "00 03 * * *" # UTC
+  jobTemplate:
+    metadata:
+      labels:
+        app: purge-datasource
+    spec:
+      template:
+        spec:
+          serviceAccountName: core
+          containers:
+          - name: purge-datasource-cronjob
+            image: fullstorydev/grpcurl
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: [
+              "grpcurl",
+              "-plaintext",
+              "datasource-api.core.svc.cluster.local:8081",
+              "datasource.DataSourceService.CleanDataSource",
+            ]
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
