@@ -57,6 +57,11 @@ GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY=$GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
 # GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY='-----BEGIN PRIxxx-----\\nxxx==\\n-----END PRIxxx-----'
 # GOOGLE_SERVICE_ACCOUNT_EMAIL=dummy@dummy.iam.gserviceaccount.com
 
+if [ -z "$GOOGLE_SERVICE_ACCOUNT_JSON" ]; then
+  # set dummy key (datasource-api is required)
+  GOOGLE_SERVICE_ACCOUNT_JSON='{"type": "service_account","project_id": "dummy","private_key_id":"dummy","private_key":"dummy","client_email":"dummy@dummy.iam.gserviceaccount.com","client_id": "dummy", "auth_uri":"https://accounts.google.com/o/oauth2/auth", "token_uri":"https://oauth2.googleapis.com/token", "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs", "client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/dummy%40dummy.iam.gserviceaccount.com"}'
+fi
+
 ## Code
 GITHUB_DEFAULT_TOKEN=your-token
 CODE_DATA_KEY=12345678901234567890123456789012
