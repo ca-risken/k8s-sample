@@ -57,6 +57,11 @@ GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY=$GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
 # GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY='-----BEGIN PRIxxx-----\\nxxx==\\n-----END PRIxxx-----'
 # GOOGLE_SERVICE_ACCOUNT_EMAIL=dummy@dummy.iam.gserviceaccount.com
 
+if [ -z "$GOOGLE_SERVICE_ACCOUNT_JSON" ]; then
+  # set dummy key (datasource-api is required)
+  GOOGLE_SERVICE_ACCOUNT_JSON='{"type": "service_account","project_id": "dummy","private_key_id":"dummy","private_key":"dummy","client_email":"dummy@dummy.iam.gserviceaccount.com","client_id": "dummy", "auth_uri":"https://accounts.google.com/o/oauth2/auth", "token_uri":"https://oauth2.googleapis.com/token", "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs", "client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/dummy%40dummy.iam.gserviceaccount.com"}'
+fi
+
 ## Code
 GITHUB_DEFAULT_TOKEN=your-token
 CODE_DATA_KEY=12345678901234567890123456789012
@@ -229,7 +234,9 @@ echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> "$PROPERTIES_PATH"
 echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> "$PROPERTIES_PATH"
 echo "AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN" >> "$PROPERTIES_PATH"
 echo "GOOGLE_SERVICE_ACCOUNT_EMAIL=$GOOGLE_SERVICE_ACCOUNT_EMAIL" >> "$PROPERTIES_PATH"
-echo "GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY=$GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY" >> "$PROPERTIES_PATH"
+
+GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_PROPERTIES_PATH="$PROPERTIES_DIR/GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY"
+echo "$GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY" >> "$GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_PROPERTIES_PATH"
 
 ### PortScan
 PROPERTIES_PATH="$PROPERTIES_DIR/google_portscan.properties"
