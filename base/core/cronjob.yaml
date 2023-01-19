@@ -363,6 +363,50 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
+  name: purge-core-cronjob
+  namespace: core
+  labels:
+    app: purge-core
+spec:
+  schedule: "00 03 * * *" # UTC
+  jobTemplate:
+    metadata:
+      labels:
+        app: purge-core
+    spec:
+      template:
+        spec:
+          serviceAccountName: core
+          containers:
+          - name: purge-core-cronjob
+            image: fullstorydev/grpcurl
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: [
+              "grpcurl",
+              "-plaintext",
+              "core.core.svc.cluster.local:8080",
+              "core.project.ProjectService.CleanProject",
+            ]
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
   name: purge-datasource-cronjob
   namespace: core
   labels:
