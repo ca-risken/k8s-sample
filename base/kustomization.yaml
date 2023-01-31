@@ -22,8 +22,6 @@ resources:
   - aws/adminchecker/deployment.yaml
   - aws/cloudsploit/deployment.yaml
   - aws/portscan/deployment.yaml
-  - aws/activity/service.yaml
-  - aws/activity/deployment.yaml
 
   # osint
   - osint/namespace.yaml

@@ -62,10 +62,6 @@ configMapGenerator:
   envs: 
     - properties/aws_portscan.properties
   namespace: aws
-- name: aws-activity-properties
-  envs: 
-    - properties/aws_activity.properties
-  namespace: aws
 - name: code-gitleaks-properties
   envs: 
     - properties/code_gitleaks.properties
