@@ -27,7 +27,6 @@ pull-image:
 	@sleep 1 && docker pull public.ecr.aws/risken/aws/cloudsploit:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/aws/guard-duty:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/aws/portscan:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/aws/activity:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/code/gitleaks:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/code/dependency:latest
 	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/wpscan:latest
