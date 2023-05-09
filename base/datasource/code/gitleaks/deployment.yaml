@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-gitleaks
+  namespace: datasource
+  labels:
+    app: code-gitleaks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: code-gitleaks
+  template:
+    metadata:
+      labels:
+        app: code-gitleaks
+    spec:
+      serviceAccountName: datasource
+      containers:
+        - name: code-gitleaks
+          image: 'public.ecr.aws/risken/code/gitleaks:latest'
+          resources:
+            limits:
+              memory: 400Mi
+              cpu: 1
+            requests:
+              memory: 200Mi
+              cpu: 600m
+          ports:
+            - containerPort: 10002
+              name: gitleaks
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/code/gitleaks'
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+               - all

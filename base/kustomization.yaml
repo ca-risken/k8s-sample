@@ -14,38 +14,31 @@ resources:
   - core/service.yaml
   - core/deployment.yaml
 
-  # aws
-  - aws/namespace.yaml
-  - aws/serviceaccount.yaml
-  - aws/guardduty/deployment.yaml
-  - aws/accessanalyzer/deployment.yaml
-  - aws/adminchecker/deployment.yaml
-  - aws/cloudsploit/deployment.yaml
-  - aws/portscan/deployment.yaml
-
-  # osint
-  - osint/namespace.yaml
-  - osint/serviceaccount.yaml
-  - osint/subdomain/deployment.yaml
-  - osint/website/deployment.yaml
-
-  # diagnosis
-  - diagnosis/namespace.yaml
-  - diagnosis/serviceaccount.yaml
-  - diagnosis/wpscan/deployment.yaml
-  - diagnosis/portscan/deployment.yaml
-  - diagnosis/applicationscan/deployment.yaml
-  
-  # code
-  - code/namespace.yaml
-  - code/serviceaccount.yaml
-  - code/gitleaks/deployment.yaml
-  - code/dependency/deployment.yaml
-
-  # google
-  - google/namespace.yaml
-  - google/serviceaccount.yaml
-  - google/asset/deployment.yaml
-  - google/cloudsploit/deployment.yaml
-  - google/scc/deployment.yaml
-  - google/portscan/deployment.yaml
+  # datasource
+  - datasource/namespace.yaml
+  - datasource/serviceaccount.yaml
+  - datasource/cronjob.yaml
+  ## API
+  - datasource/api/service.yaml
+  - datasource/api/deployment.yaml
+  ## AWS
+  - datasource/aws/guardduty/deployment.yaml
+  - datasource/aws/accessanalyzer/deployment.yaml
+  - datasource/aws/adminchecker/deployment.yaml
+  - datasource/aws/cloudsploit/deployment.yaml
+  - datasource/aws/portscan/deployment.yaml
+  ## Code
+  - datasource/code/dependency/deployment.yaml
+  - datasource/code/gitleaks/deployment.yaml
+  ## Diagnosis
+  - datasource/diagnosis/applicationscan/deployment.yaml
+  - datasource/diagnosis/portscan/deployment.yaml
+  - datasource/diagnosis/wpscan/deployment.yaml
+  ## Google
+  - datasource/google/asset/deployment.yaml
+  - datasource/google/cloudsploit/deployment.yaml
+  - datasource/google/portscan/deployment.yaml
+  - datasource/google/scc/deployment.yaml
+  ## OSINT
+  - datasource/osint/subdomain/deployment.yaml
+  - datasource/osint/website/deployment.yaml

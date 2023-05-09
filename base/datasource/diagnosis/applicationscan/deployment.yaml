@@ -1,43 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: core
-  namespace: core
+  name: diagnosis-applicationscan
+  namespace: datasource
   labels:
-    app: core
+    app: diagnosis-applicationscan
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: core
+      app: diagnosis-applicationscan
   template:
     metadata:
       labels:
-        app: core
+        app: diagnosis-applicationscan
     spec:
-      serviceAccountName: core
+      serviceAccountName: datasource
       containers:
-        - name: core
-          image: 'public.ecr.aws/risken/risken-core:latest'
+        - name: diagnosis-applicationscan
+          image: 'public.ecr.aws/risken/diagnosis/applicationscan:latest'
           resources:
             limits:
-              memory: 500Mi
+              memory: 600Mi
               cpu: 300m
             requests:
-              memory: 500Mi
-              cpu: 100m
-          lifecycle:
-            preStop:
-              exec:
-                command: ["sh", "-c", "sleep 5"]
+              memory: 400Mi
+              cpu: 200m
           ports:
-            - containerPort: 8080
-              name: core
+            - containerPort: 19005
+              name: applicationscan
           env:
             - name: AWS_DEFAULT_REGION
               value: 'region-code'
             - name: ENV_INJECTOR_META_CONFIG
-              value: '/env/meta/core'
+              value: '/env/meta/diagnosis/applicationscan'
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
@@ -46,8 +42,3 @@ spec:
             capabilities:
               drop:
                - all
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 3000
-            initialDelaySeconds: 5

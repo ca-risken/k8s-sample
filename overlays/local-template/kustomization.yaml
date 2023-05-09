@@ -9,104 +9,105 @@ bases:
 patchesStrategicMerge:
   - gateway.yaml
   - core.yaml
-  - aws.yaml
-  - osint.yaml
-  - diagnosis.yaml
-  - code.yaml
-  - google.yaml
+  - datasource.yaml
   - middleware.yaml
-  - pv.yaml
+  - pv.yaml # auto-generated
 
 configMapGenerator:
-- name: core-alert-properties
-  envs:
-    - properties/core_alert.properties
-  namespace: core
-- name: core-finding-properties
-  envs:
-    - properties/core_finding.properties
-  namespace: core
-- name: core-iam-properties
-  envs:
-    - properties/core_iam.properties
-  namespace: core
-- name: core-project-properties
-  envs:
-    - properties/core_project.properties
-  namespace: core
-- name: core-report-properties
-  envs:
-    - properties/core_report.properties
-  namespace: core
-- name: core-datasource-api-properties
-  envs:
-    - properties/core_datasource_api.properties
-  namespace: core
-- name: aws-accessanalyzer-properties
-  envs: 
-    - properties/aws_accessanalyzer.properties
-  namespace: aws
-- name: aws-adminchecker-properties
-  envs: 
-    - properties/aws_adminchecker.properties
-  namespace: aws
-- name: aws-cloudsploit-properties
-  envs: 
-    - properties/aws_cloudsploit.properties
-  namespace: aws
-- name: aws-guardduty-properties
-  envs: 
-    - properties/aws_guardduty.properties
-  namespace: aws
-- name: aws-portscan-properties
-  envs: 
-    - properties/aws_portscan.properties
-  namespace: aws
-- name: code-gitleaks-properties
-  envs: 
-    - properties/code_gitleaks.properties
-  namespace: code
-- name: code-dependency-properties
-  envs: 
-    - properties/code_dependency.properties
-  namespace: code
-- name: diagnosis-wpscan-properties
-  envs: 
-    - properties/diagnosis_wpscan.properties
-  namespace: diagnosis
-- name: diagnosis-portscan-properties
-  envs: 
-    - properties/diagnosis_portscan.properties
-  namespace: diagnosis
-- name: diagnosis-applicationscan-properties
-  envs: 
-    - properties/diagnosis_applicationscan.properties
-  namespace: diagnosis
-- name: google-asset-properties
-  envs: 
-    - properties/google_asset.properties
-  namespace: google
-- name: google-cloudsploit-properties
-  envs: 
-    - properties/google_cloudsploit.properties
-  namespace: google
-- name: google-portscan-properties
-  envs: 
-    - properties/google_portscan.properties
-  namespace: google
-- name: google-scc-properties
-  envs: 
-    - properties/google_scc.properties
-  namespace: google
+# Gateway
 - name: gateway-gateway-properties
+  namespace: gateway
   envs: 
     - properties/gateway_gateway.properties
-  namespace: gateway
+
+# Core
+- name: core-alert-properties
+  namespace: core
+  envs:
+    - properties/core_alert.properties
+- name: core-finding-properties
+  namespace: core
+  envs:
+    - properties/core_finding.properties
+- name: core-iam-properties
+  namespace: core
+  envs:
+    - properties/core_iam.properties
+- name: core-project-properties
+  namespace: core
+  envs:
+    - properties/core_project.properties
+- name: core-report-properties
+  namespace: core
+  envs:
+    - properties/core_report.properties
+
+# DataSource
+- name: datasource-api-properties
+  namespace: datasource
+  envs:
+    - properties/datasource_api.properties
+- name: aws-accessanalyzer-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_aws_accessanalyzer.properties
+- name: aws-adminchecker-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_aws_adminchecker.properties
+- name: aws-cloudsploit-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_aws_cloudsploit.properties
+- name: aws-guardduty-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_aws_guardduty.properties
+- name: aws-portscan-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_aws_portscan.properties
+- name: code-gitleaks-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_code_gitleaks.properties
+- name: code-dependency-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_code_dependency.properties
+- name: diagnosis-wpscan-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_diagnosis_wpscan.properties
+- name: diagnosis-portscan-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_diagnosis_portscan.properties
+- name: diagnosis-applicationscan-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_diagnosis_applicationscan.properties
+- name: google-asset-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_google_asset.properties
+- name: google-cloudsploit-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_google_cloudsploit.properties
+- name: google-portscan-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_google_portscan.properties
+- name: google-scc-properties
+  namespace: datasource
+  envs: 
+    - properties/datasource_google_scc.properties
 - name: osint-subdomain-properties
+  namespace: datasource
   envs: 
-    - properties/osint_subdomain.properties
-  namespace: osint
+    - properties/datasource_osint_subdomain.properties
 - name: osint-website-properties
+  namespace: datasource
   envs: 
-    - properties/osint_website.properties
-  namespace: osint
+    - properties/datasource_osint_website.properties
