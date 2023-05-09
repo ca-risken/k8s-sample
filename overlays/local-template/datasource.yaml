@@ -1,0 +1,481 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datasource-api
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: datasource-api
+          image: 'public.ecr.aws/risken/risken-datasource-api:latest'
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              memory: 50Mi
+              cpu: 50m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+            - configMapRef:
+                name: datasource-api-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-accessanalyzer
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: aws-accessanalyzer
+          image: 'public.ecr.aws/risken/aws/access-analyzer:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-accessanalyzer-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-adminchecker
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: aws-adminchecker
+          image: 'public.ecr.aws/risken/aws/admin-checker:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-adminchecker-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-cloudsploit
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: aws-cloudsploit
+          image: 'public.ecr.aws/risken/aws/cloudsploit:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-cloudsploit-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-guardduty
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: aws-guardduty
+          image: 'public.ecr.aws/risken/aws/guard-duty:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-guardduty-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-portscan
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: aws-portscan
+          image: 'public.ecr.aws/risken/aws/portscan:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: aws-portscan-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-gitleaks
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: code-gitleaks
+          image: 'public.ecr.aws/risken/code/gitleaks:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: code-gitleaks-properties
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-dependency
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: code-dependency
+          image: 'public.ecr.aws/risken/code/dependency:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: code-dependency-properties
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diagnosis-wpscan
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: diagnosis-wpscan
+          image: 'public.ecr.aws/risken/diagnosis/wpscan:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: diagnosis-wpscan-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diagnosis-portscan
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: diagnosis-portscan
+          image: 'public.ecr.aws/risken/diagnosis/portscan:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: diagnosis-portscan-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diagnosis-applicationscan
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: diagnosis-applicationscan
+          image: 'public.ecr.aws/risken/diagnosis/applicationscan:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: diagnosis-applicationscan-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: google-asset
+  namespace: datasource
+spec:
+  replicas: 0
+  template:
+    spec:
+      containers:
+        - name: google-asset
+          image: 'public.ecr.aws/risken/google/asset:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+                name: google-asset-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: google-cloudsploit
+  namespace: datasource
+spec:
+  replicas: 0
+  template:
+    spec:
+      containers:
+        - name: google-cloudsploit
+          image: 'public.ecr.aws/risken/google/cloudsploit:latest'
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: google-cloudsploit-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: google-scc
+  namespace: datasource
+spec:
+  replicas: 0
+  template:
+    spec:
+      containers:
+        - name: google-scc
+          image: 'public.ecr.aws/risken/google/scc:latest'
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              memory: 50Mi
+              cpu: 50m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: google-scc-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: google-portscan
+  namespace: datasource
+spec:
+  replicas: 0
+  template:
+    spec:
+      containers:
+        - name: google-portscan
+          image: 'public.ecr.aws/risken/google/portscan:latest'
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: google-portscan-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osint-subdomain
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: osint-subdomain
+          image: 'public.ecr.aws/risken/osint/subdomain:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: osint-subdomain-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osint-website
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: osint-website
+          image: 'public.ecr.aws/risken/osint/website:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+          - configMapRef:
+              name: osint-website-properties
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: aws-cronjob
+  namespace: datasource
+spec:
+  suspend: true
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: code-cronjob
+  namespace: datasource
+spec:
+  suspend: true
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: diagnosis-cronjob
+  namespace: datasource
+spec:
+  suspend: true
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: google-cronjob
+  namespace: datasource
+spec:
+  suspend: true
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: osint-cronjob
+  namespace: datasource
+spec:
+  suspend: true

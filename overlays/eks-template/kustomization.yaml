@@ -8,9 +8,5 @@ bases:
 patchesStrategicMerge:
   - gateway.yaml
   - core.yaml
-  - aws.yaml
-  - osint.yaml
-  - diagnosis.yaml
-  - code.yaml
-  - google.yaml
+  - datasource.yaml
   - middleware.yaml

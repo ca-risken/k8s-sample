@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diagnosis-portscan
+  namespace: datasource
+  labels:
+    app: diagnosis-portscan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: diagnosis-portscan
+  template:
+    metadata:
+      labels:
+        app: diagnosis-portscan
+    spec:
+      serviceAccountName: datasource
+      containers:
+        - name: diagnosis-portscan
+          image: 'public.ecr.aws/risken/diagnosis/portscan:latest'
+          resources:
+            limits:
+              memory: 600Mi
+              cpu: 1
+            requests:
+              memory: 400Mi
+              cpu: 500m
+          ports:
+            - containerPort: 19004
+              name: portscan
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/diagnosis/portscan'

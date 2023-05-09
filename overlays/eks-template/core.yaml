@@ -38,38 +38,6 @@ spec:
                 name: core-report-properties
 
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: datasource-api
-  namespace: core
-  labels:
-    version: 'latest'
-spec:
-  replicas: 1
-  template:
-    spec:
-      containers:
-        - name: datasource-api
-          image: 'public.ecr.aws/risken/risken-datasource-api:latest'
-          imagePullPolicy: Never
-          resources:
-            limits:
-              cpu: 100m
-              memory: 100Mi
-            requests:
-              memory: 50Mi
-              cpu: 50m
-          env:
-            - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
-            - name: ENV_INJECTOR_META_CONFIG
-              value: ''
-          envFrom:
-            - configMapRef:
-                name: core-datasource-api-properties
-
----
 $patch: delete
 apiVersion: v1
 kind: ServiceAccount
