@@ -18,31 +18,6 @@ get-cluster:
 debug-pod:
 	kubectl apply -f debug/pod.yaml 
 
-.PHONY: pull-image
-pull-image:
-	docker pull public.ecr.aws/risken/aws/access-analyzer:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/risken-core:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/risken-datasource-api:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/aws/admin-checker:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/aws/cloudsploit:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/aws/guard-duty:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/aws/portscan:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/code/gitleaks:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/code/dependency:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/wpscan:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/portscan:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/diagnosis/applicationscan:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/gateway/gateway:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/gateway/web:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/google/asset:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/google/cloudsploit:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/google/portscan:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/google/scc:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/middleware/db:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/middleware/queue:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/osint/subdomain:latest
-	@sleep 1 && docker pull public.ecr.aws/risken/osint/website:latest
-
 ## local #############################################
 .PHONY: local-switch
 local-switch:
@@ -67,15 +42,15 @@ local-setting: local-switch
 
 .PHONY: local-build
 local-build: local-switch local-setting
-	kustomize build overlays/local
+	kubectl kustomize overlays/local
 
 .PHONY: local-apply
 local-apply: local-build
-	kustomize build overlays/local | kubectl apply -f -
+	kubectl apply -k overlays/local
 
 .PHONY: local-delete
 local-delete: local-switch 
-	kustomize build overlays/local | kubectl delete -f -
+	kubectl delete -k overlays/local
 
 .PHONY: local-db
 local-db: local-switch
@@ -84,12 +59,12 @@ local-db: local-switch
 ## EKS #############################################
 .PHONY: eks-build
 eks-build:
-	kustomize build overlays/eks
+	kubectl kustomize overlays/eks
 
 .PHONY: eks-apply
 eks-apply: eks-build
-	kustomize build overlays/eks | kubectl apply -f -
+	kubectl apply -k overlays/eks
 
 .PHONY: eks-delete
 eks-delete:
-	kustomize build overlays/eks | kubectl delete -f -
+	kubectl delete -k overlays/eks
