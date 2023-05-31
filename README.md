@@ -19,8 +19,7 @@ The detailed flow can be found [here](https://docs.security-hub.jp/admin/infra_a
 ### Required
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
-- [kubectl](https://kubernetes.io/ja/docs/tasks/tools/install-kubectl/)
-- [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
 
 ### On Docker Descktop (MAC)
 
