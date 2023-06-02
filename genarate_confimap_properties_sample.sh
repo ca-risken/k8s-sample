@@ -7,6 +7,7 @@ mkdir -p $LOCAL_DIR
 cp -n $TEMPLATE_DIR/* $LOCAL_DIR/
 
 export PV_HOST_PATH=$(cd $(dirname $0);pwd)/data/mysql
+mkdir -p ${PV_HOST_PATH}
 cat <<EOF > overlays/local/pv.yaml
 apiVersion: v1
 kind: PersistentVolume
