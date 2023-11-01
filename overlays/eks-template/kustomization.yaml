@@ -2,7 +2,7 @@ commonLabels:
   env: eks
 commonAnnotations:
   note: eks
-bases:
+resources:
   - ../../base
   - ../../middleware
 patchesStrategicMerge:

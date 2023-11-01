@@ -51,3 +51,16 @@ The detailed flow can be found [here](https://docs.security-hub.jp/admin/infra_a
     ```shell
     $ kustomize build overlays/eks | kubectl apply -f -
     ```
+
+## Use Enabled Generative AI
+
+You can enable the generative AI.
+
+1. First, obtain the OpenAI API token.
+2. Then, modify the specified location in the generate_confimap_properties.sh file.
+
+```shell
+## Core
+OPEN_AI_TOKEN=sk-xxxx # Overwrite here
+CHAT_GPT_MODEL=gpt-3.5-turbo # you can fix gpt model
+```
