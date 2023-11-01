@@ -49,8 +49,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: aws-accessanalyzer-properties
+            - configMapRef:
+                name: aws-accessanalyzer-properties
 
 ---
 apiVersion: apps/v1
@@ -75,8 +75,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: aws-adminchecker-properties
+            - configMapRef:
+                name: aws-adminchecker-properties
 
 ---
 apiVersion: apps/v1
@@ -101,8 +101,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: aws-cloudsploit-properties
+            - configMapRef:
+                name: aws-cloudsploit-properties
 
 ---
 apiVersion: apps/v1
@@ -127,8 +127,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: aws-guardduty-properties
+            - configMapRef:
+                name: aws-guardduty-properties
 
 ---
 apiVersion: apps/v1
@@ -153,8 +153,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: aws-portscan-properties
+            - configMapRef:
+                name: aws-portscan-properties
 
 ---
 apiVersion: apps/v1
@@ -179,8 +179,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: code-gitleaks-properties
+            - configMapRef:
+                name: code-gitleaks-properties
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -204,8 +204,38 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: code-dependency-properties
+            - configMapRef:
+                name: code-dependency-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-codescan
+  namespace: datasource
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: code-codescan
+          image: 'public.ecr.aws/risken/code/codescan:latest'
+          resources:
+            limits:
+              memory: 1000Mi
+              cpu: 500m
+            requests:
+              memory: 400Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+            - configMapRef:
+                name: code-codescan-properties
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -229,8 +259,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: diagnosis-wpscan-properties
+            - configMapRef:
+                name: diagnosis-wpscan-properties
 
 ---
 apiVersion: apps/v1
@@ -255,8 +285,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: diagnosis-portscan-properties
+            - configMapRef:
+                name: diagnosis-portscan-properties
 
 ---
 apiVersion: apps/v1
@@ -281,8 +311,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: diagnosis-applicationscan-properties
+            - configMapRef:
+                name: diagnosis-applicationscan-properties
 
 ---
 apiVersion: apps/v1
@@ -307,7 +337,7 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
+            - configMapRef:
                 name: google-asset-properties
 
 ---
@@ -329,8 +359,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: google-cloudsploit-properties
+            - configMapRef:
+                name: google-cloudsploit-properties
 
 ---
 apiVersion: apps/v1
@@ -358,8 +388,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: google-scc-properties
+            - configMapRef:
+                name: google-scc-properties
 
 ---
 apiVersion: apps/v1
@@ -380,8 +410,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: google-portscan-properties
+            - configMapRef:
+                name: google-portscan-properties
 
 ---
 apiVersion: apps/v1
@@ -406,8 +436,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: osint-subdomain-properties
+            - configMapRef:
+                name: osint-subdomain-properties
 
 ---
 apiVersion: apps/v1
@@ -432,8 +462,8 @@ spec:
             - name: ENV_INJECTOR_META_CONFIG
               value: ''
           envFrom:
-          - configMapRef:
-              name: osint-website-properties
+            - configMapRef:
+                name: osint-website-properties
 
 ---
 apiVersion: batch/v1

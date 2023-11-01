@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: datasource-api
-          image: 'public.ecr.aws/risken/risken-datasource-api:latest'
+          image: "public.ecr.aws/risken/risken-datasource-api:latest"
           imagePullPolicy: Never
           resources:
             limits:
@@ -20,9 +20,9 @@ spec:
               cpu: 50m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
           envFrom:
             - configMapRef:
                 name: core-datasource-api-properties
@@ -37,19 +37,19 @@ spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: aws-accessanalyzer
-          image: 'public.ecr.aws/risken/aws/access-analyzer:latest'
+          image: "public.ecr.aws/risken/aws/access-analyzer:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -61,19 +61,19 @@ spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: aws-adminchecker
-          image: 'public.ecr.aws/risken/aws/admin-checker:latest'
+          image: "public.ecr.aws/risken/aws/admin-checker:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -85,19 +85,19 @@ spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: aws-cloudsploit
-          image: 'public.ecr.aws/risken/aws/cloudsploit:latest'
+          image: "public.ecr.aws/risken/aws/cloudsploit:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -109,19 +109,19 @@ spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: aws-guardduty
-          image: 'public.ecr.aws/risken/aws/guard-duty:latest'
+          image: "public.ecr.aws/risken/aws/guard-duty:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -133,19 +133,19 @@ spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: aws-portscan
-          image: 'public.ecr.aws/risken/aws/portscan:latest'
+          image: "public.ecr.aws/risken/aws/portscan:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -157,19 +157,19 @@ spec:
   replicas: 0
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: code-gitleaks
-          image: 'public.ecr.aws/risken/code/gitleaks:latest'
+          image: "public.ecr.aws/risken/code/gitleaks:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -181,19 +181,43 @@ spec:
   replicas: 0
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: code-dependency
-          image: 'public.ecr.aws/risken/code/dependency:latest'
+          image: "public.ecr.aws/risken/code/dependency:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-codescan
+  namespace: datasource
+spec:
+  replicas: 0
+  template:
+    spec:
+      serviceAccountName: ""
+      containers:
+        - name: code-codescan
+          image: "public.ecr.aws/risken/code/codescan:latest"
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: "ap-northeast-1"
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -207,19 +231,19 @@ spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: diagnosis-wpscan
-          image: 'public.ecr.aws/risken/diagnosis/wpscan:latest'
+          image: "public.ecr.aws/risken/diagnosis/wpscan:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -231,19 +255,19 @@ spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: diagnosis-portscan
-          image: 'public.ecr.aws/risken/diagnosis/portscan:latest'
+          image: "public.ecr.aws/risken/diagnosis/portscan:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -255,19 +279,19 @@ spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: diagnosis-applicationscan
-          image: 'public.ecr.aws/risken/diagnosis/applicationscan:latest'
+          image: "public.ecr.aws/risken/diagnosis/applicationscan:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -279,19 +303,19 @@ spec:
   replicas: 0
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: google-asset
-          image: 'public.ecr.aws/risken/google/asset:latest'
+          image: "public.ecr.aws/risken/google/asset:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -303,15 +327,15 @@ spec:
   replicas: 0
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: google-cloudsploit
-          image: 'public.ecr.aws/risken/google/cloudsploit:latest'
+          image: "public.ecr.aws/risken/google/cloudsploit:latest"
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -323,10 +347,10 @@ spec:
   replicas: 0
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: google-scc
-          image: 'public.ecr.aws/risken/google/scc:latest'
+          image: "public.ecr.aws/risken/google/scc:latest"
           resources:
             limits:
               cpu: 100m
@@ -336,9 +360,9 @@ spec:
               cpu: 50m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -350,15 +374,15 @@ spec:
   replicas: 0
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: google-portscan
-          image: 'public.ecr.aws/risken/google/portscan:latest'
+          image: "public.ecr.aws/risken/google/portscan:latest"
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -370,19 +394,19 @@ spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: osint-subdomain
-          image: 'public.ecr.aws/risken/osint/subdomain:latest'
+          image: "public.ecr.aws/risken/osint/subdomain:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 apiVersion: apps/v1
@@ -394,19 +418,19 @@ spec:
   replicas: 1
   template:
     spec:
-      serviceAccountName: ''
+      serviceAccountName: ""
       containers:
         - name: osint-website
-          image: 'public.ecr.aws/risken/osint/website:latest'
+          image: "public.ecr.aws/risken/osint/website:latest"
           resources:
             requests:
               memory: 200Mi
               cpu: 100m
           env:
             - name: AWS_DEFAULT_REGION
-              value: 'ap-northeast-1'
+              value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
-              value: ''
+              value: ""
 
 ---
 $patch: delete

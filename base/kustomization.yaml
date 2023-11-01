@@ -30,6 +30,7 @@ resources:
   ## Code
   - datasource/code/dependency/deployment.yaml
   - datasource/code/gitleaks/deployment.yaml
+  - datasource/code/codescan/deployment.yaml
   ## Diagnosis
   - datasource/diagnosis/applicationscan/deployment.yaml
   - datasource/diagnosis/portscan/deployment.yaml
