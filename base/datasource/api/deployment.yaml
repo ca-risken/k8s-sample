@@ -47,7 +47,6 @@ spec:
               drop:
                - all
           readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 3000
+            grpc:
+              port: 8081
             initialDelaySeconds: 5
