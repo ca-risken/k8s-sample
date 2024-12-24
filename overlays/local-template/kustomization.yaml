@@ -16,102 +16,102 @@ patchesStrategicMerge:
 configMapGenerator:
   # Gateway
   - name: gateway-gateway-properties
-    namespace: gateway
+    namespace: risken
     envs:
       - properties/gateway_gateway.properties
 
   # Core
   - name: core-alert-properties
-    namespace: core
+    namespace: risken
     envs:
       - properties/core_alert.properties
   - name: core-finding-properties
-    namespace: core
+    namespace: risken
     envs:
       - properties/core_finding.properties
   - name: core-iam-properties
-    namespace: core
+    namespace: risken
     envs:
       - properties/core_iam.properties
   - name: core-project-properties
-    namespace: core
+    namespace: risken
     envs:
       - properties/core_project.properties
   - name: core-report-properties
-    namespace: core
+    namespace: risken
     envs:
       - properties/core_report.properties
 
   # DataSource
   - name: datasource-api-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_api.properties
   - name: aws-accessanalyzer-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_aws_accessanalyzer.properties
   - name: aws-adminchecker-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_aws_adminchecker.properties
   - name: aws-cloudsploit-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_aws_cloudsploit.properties
   - name: aws-guardduty-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_aws_guardduty.properties
   - name: aws-portscan-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_aws_portscan.properties
   - name: code-gitleaks-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_code_gitleaks.properties
   - name: code-dependency-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_code_dependency.properties
   - name: code-codescan-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_code_codescan.properties
   - name: diagnosis-wpscan-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_diagnosis_wpscan.properties
   - name: diagnosis-portscan-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_diagnosis_portscan.properties
   - name: diagnosis-applicationscan-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_diagnosis_applicationscan.properties
   - name: google-asset-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_google_asset.properties
   - name: google-cloudsploit-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_google_cloudsploit.properties
   - name: google-portscan-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_google_portscan.properties
   - name: google-scc-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_google_scc.properties
   - name: osint-subdomain-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_osint_subdomain.properties
   - name: osint-website-properties
-    namespace: datasource
+    namespace: risken
     envs:
       - properties/datasource_osint_website.properties

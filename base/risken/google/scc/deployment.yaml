@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: google-scc
+  namespace: risken
+  labels:
+    app: google-scc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: google-scc
+  template:
+    metadata:
+      labels:
+        app: google-scc
+    spec:
+      serviceAccountName: risken
+      containers:
+        - name: google-scc
+          image: 'public.ecr.aws/risken/google/scc:latest'
+          resources:
+            limits:
+              memory: 800Mi
+              cpu: 1
+            requests:
+              memory: 500Mi
+              cpu: 600m
+          ports:
+            - containerPort: 11004
+              name: scc
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/google/scc'
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+               - all

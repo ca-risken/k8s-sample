@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-cloudsploit
+  namespace: risken
+  labels:
+    app: aws-cloudsploit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aws-cloudsploit
+  template:
+    metadata:
+      labels:
+        app: aws-cloudsploit
+    spec:
+      serviceAccountName: risken
+      containers:
+        - name: aws-cloudsploit
+          image: 'public.ecr.aws/risken/aws/cloudsploit:latest'
+          resources:
+            limits:
+              memory: 600Mi
+              cpu: 1
+            requests:
+              memory: 400Mi
+              cpu: 600m
+          ports:
+            - containerPort: 9005
+              name: cloudsploit
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/aws/cloudsploit'
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+               - all

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: datasource-api
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -31,7 +31,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aws-accessanalyzer
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -57,7 +57,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aws-adminchecker
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -83,7 +83,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aws-cloudsploit
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -109,7 +109,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aws-guardduty
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -135,7 +135,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aws-portscan
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -161,7 +161,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: code-gitleaks
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -186,7 +186,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: code-dependency
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -212,7 +212,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: code-codescan
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -241,7 +241,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: diagnosis-wpscan
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -267,7 +267,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: diagnosis-portscan
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -293,7 +293,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: diagnosis-applicationscan
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -319,7 +319,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: google-asset
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 0
   template:
@@ -345,7 +345,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: google-cloudsploit
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 0
   template:
@@ -367,7 +367,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: google-scc
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 0
   template:
@@ -396,7 +396,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: google-portscan
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 0
   template:
@@ -418,7 +418,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: osint-subdomain
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -444,7 +444,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: osint-website
-  namespace: datasource
+  namespace: risken
 spec:
   replicas: 1
   template:
@@ -470,7 +470,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: aws-cronjob
-  namespace: datasource
+  namespace: risken
 spec:
   suspend: true
 
@@ -479,7 +479,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: code-cronjob
-  namespace: datasource
+  namespace: risken
 spec:
   suspend: true
 
@@ -488,7 +488,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: diagnosis-cronjob
-  namespace: datasource
+  namespace: risken
 spec:
   suspend: true
 
@@ -497,7 +497,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: google-cronjob
-  namespace: datasource
+  namespace: risken
 spec:
   suspend: true
 
@@ -506,6 +506,6 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: osint-cronjob
-  namespace: datasource
+  namespace: risken
 spec:
   suspend: true

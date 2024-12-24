@@ -7,7 +7,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: debug
-  namespace: core
+  namespace: risken
 spec:
   containers:
   - name: debug

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: core
-  namespace: core
+  namespace: risken
   labels:
     version: 'latest'
 spec:
@@ -42,7 +42,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: report-cronjob
-  namespace: core
+  namespace: risken
 spec:
   suspend: true
 
@@ -51,7 +51,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: iam-cronjob
-  namespace: core
+  namespace: risken
 spec:
   suspend: true
 
@@ -60,6 +60,6 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: alert-cronjob
-  namespace: core
+  namespace: risken
 spec:
   suspend: true

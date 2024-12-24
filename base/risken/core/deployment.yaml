@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: core
+  namespace: risken
+  labels:
+    app: core
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: core
+  template:
+    metadata:
+      labels:
+        app: core
+    spec:
+      serviceAccountName: risken
+      containers:
+        - name: core
+          image: 'public.ecr.aws/risken/risken-core:latest'
+          resources:
+            limits:
+              memory: 500Mi
+              cpu: 300m
+            requests:
+              memory: 500Mi
+              cpu: 100m
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sh", "-c", "sleep 5"]
+          ports:
+            - containerPort: 8080
+              name: core
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/core'
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+               - all
+          readinessProbe:
+            grpc:
+              port: 8080
+            initialDelaySeconds: 5

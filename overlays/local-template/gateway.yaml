@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gateway
-  namespace: gateway
+  namespace: risken
   labels:
     version: "latest"
 spec:
@@ -30,7 +30,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web
-  namespace: gateway
+  namespace: risken
   labels:
     version: "latest"
 spec:
