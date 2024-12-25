@@ -160,6 +160,32 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: azure-prowler
+  namespace: risken
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: azure-prowler
+          image: 'public.ecr.aws/risken/azure/prowler:latest'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'ap-northeast-1'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: ''
+          envFrom:
+            - configMapRef:
+                name: azure-prowler-properties
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: code-gitleaks
   namespace: risken
 spec:
@@ -470,6 +496,15 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: aws-cronjob
+  namespace: risken
+spec:
+  suspend: true
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: azure-cronjob
   namespace: risken
 spec:
   suspend: true

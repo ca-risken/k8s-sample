@@ -172,6 +172,7 @@ spec:
                 drop:
                 - all
           restartPolicy: Never
+
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -207,6 +208,52 @@ spec:
               "-plaintext",
               "datasource-api.risken.svc.cluster.local:8081",
               "datasource.aws.AWSService.InvokeScanAll",
+            ]
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: azure-cronjob
+  namespace: risken
+  labels:
+    app: azure
+spec:
+  # The time zone must be set in UTC.(For JST, set +0900)
+  # @see https://kubernetes.io/ja/docs/concepts/workloads/controllers/cron-jobs/ 
+  schedule: "25 17 * * *" 
+  jobTemplate:
+    metadata:
+      labels:
+        app: azure
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: azure-cronjob
+            image: fullstorydev/grpcurl
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: [
+              "grpcurl",
+              "-plaintext",
+              "datasource-api.risken.svc.cluster.local:8081",
+              "datasource.azure.AzureService.InvokeScanAll",
             ]
             securityContext:
               runAsUser: 1000

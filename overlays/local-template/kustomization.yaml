@@ -67,6 +67,10 @@ configMapGenerator:
     namespace: risken
     envs:
       - properties/datasource_aws_portscan.properties
+  - name: azure-prowler-properties
+    namespace: risken
+    envs:
+      - properties/datasource_azure_prowler.properties
   - name: code-gitleaks-properties
     namespace: risken
     envs:

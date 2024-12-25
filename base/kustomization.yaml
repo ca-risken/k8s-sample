@@ -24,6 +24,8 @@ resources:
   - risken/aws/adminchecker/deployment.yaml
   - risken/aws/cloudsploit/deployment.yaml
   - risken/aws/portscan/deployment.yaml
+  ## Azure
+  - risken/azure/prowler/deployment.yaml
   ## Code
   - risken/code/dependency/deployment.yaml
   - risken/code/gitleaks/deployment.yaml
