@@ -43,11 +43,3 @@ spec:
             requests:
               memory: 200Mi
               cpu: 100m
-
----
-$patch: delete
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: gateway
-  namespace: risken

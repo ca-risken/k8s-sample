@@ -431,11 +431,3 @@ spec:
               value: "ap-northeast-1"
             - name: ENV_INJECTOR_META_CONFIG
               value: ""
-
----
-$patch: delete
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: datasource
-  namespace: risken

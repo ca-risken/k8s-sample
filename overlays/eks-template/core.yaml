@@ -42,5 +42,5 @@ $patch: delete
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: core
+  name: risken
   namespace: risken
