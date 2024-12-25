@@ -1,45 +1,44 @@
 resources:
-  # gateway
-  - gateway/namespace.yaml
-  - gateway/serviceaccount.yaml
-  - gateway/gateway/service.yaml
-  - gateway/gateway/deployment.yaml
-  - gateway/web/service.yaml
-  - gateway/web/deployment.yaml
+  # risken
+  - risken/namespace.yaml
+  - risken/serviceaccount.yaml
+  - risken/cronjob.yaml
 
   # core
-  - core/namespace.yaml
-  - core/serviceaccount.yaml
-  - core/cronjob.yaml
-  - core/service.yaml
-  - core/deployment.yaml
+  - risken/core/service.yaml
+  - risken/core/deployment.yaml
+
+  # gateway
+  - risken/gateway/service.yaml
+  - risken/gateway/deployment.yaml
+  - risken/web/service.yaml
+  - risken/web/deployment.yaml
 
   # datasource
-  - datasource/namespace.yaml
-  - datasource/serviceaccount.yaml
-  - datasource/cronjob.yaml
   ## API
-  - datasource/api/service.yaml
-  - datasource/api/deployment.yaml
+  - risken/datasource-api/service.yaml
+  - risken/datasource-api/deployment.yaml
   ## AWS
-  - datasource/aws/guardduty/deployment.yaml
-  - datasource/aws/accessanalyzer/deployment.yaml
-  - datasource/aws/adminchecker/deployment.yaml
-  - datasource/aws/cloudsploit/deployment.yaml
-  - datasource/aws/portscan/deployment.yaml
+  - risken/aws/guardduty/deployment.yaml
+  - risken/aws/accessanalyzer/deployment.yaml
+  - risken/aws/adminchecker/deployment.yaml
+  - risken/aws/cloudsploit/deployment.yaml
+  - risken/aws/portscan/deployment.yaml
+  ## Azure
+  - risken/azure/prowler/deployment.yaml
   ## Code
-  - datasource/code/dependency/deployment.yaml
-  - datasource/code/gitleaks/deployment.yaml
-  - datasource/code/codescan/deployment.yaml
+  - risken/code/dependency/deployment.yaml
+  - risken/code/gitleaks/deployment.yaml
+  - risken/code/codescan/deployment.yaml
   ## Diagnosis
-  - datasource/diagnosis/applicationscan/deployment.yaml
-  - datasource/diagnosis/portscan/deployment.yaml
-  - datasource/diagnosis/wpscan/deployment.yaml
+  - risken/diagnosis/applicationscan/deployment.yaml
+  - risken/diagnosis/portscan/deployment.yaml
+  - risken/diagnosis/wpscan/deployment.yaml
   ## Google
-  - datasource/google/asset/deployment.yaml
-  - datasource/google/cloudsploit/deployment.yaml
-  - datasource/google/portscan/deployment.yaml
-  - datasource/google/scc/deployment.yaml
+  - risken/google/asset/deployment.yaml
+  - risken/google/cloudsploit/deployment.yaml
+  - risken/google/portscan/deployment.yaml
+  - risken/google/scc/deployment.yaml
   ## OSINT
-  - datasource/osint/subdomain/deployment.yaml
-  - datasource/osint/website/deployment.yaml
+  - risken/osint/subdomain/deployment.yaml
+  - risken/osint/website/deployment.yaml

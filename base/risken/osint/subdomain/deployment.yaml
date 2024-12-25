@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osint-subdomain
+  namespace: risken
+  labels:
+    app: osint-subdomain
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: osint-subdomain
+  template:
+    metadata:
+      labels:
+        app: osint-subdomain
+    spec:
+      serviceAccountName: risken
+      containers:
+        - name: osint-subdomain
+          image: 'public.ecr.aws/risken/osint/subdomain:latest'
+          resources:
+            limits:
+              memory: 2048Mi
+              cpu: 1
+            requests:
+              memory: 1536Mi
+              cpu: 800m
+          ports:
+            - containerPort: 18083
+              name: subdomain
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/osint/subdomain'

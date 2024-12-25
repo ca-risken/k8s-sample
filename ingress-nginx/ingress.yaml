@@ -55,7 +55,7 @@ metadata:
   namespace: ingress-nginx
 spec:
   type: ExternalName
-  externalName: gateway.gateway.svc.cluster.local
+  externalName: gateway.risken.svc.cluster.local
 
 ---
 apiVersion: v1
@@ -65,7 +65,7 @@ metadata:
   namespace: ingress-nginx
 spec:
   type: ExternalName
-  externalName: web.gateway.svc.cluster.local
+  externalName: web.risken.svc.cluster.local
 
 ---
 apiVersion: v1

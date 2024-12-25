@@ -1,0 +1,494 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: alert-cronjob
+  namespace: risken
+  labels:
+    app: alert-cronjob
+spec:
+  schedule: "00 01 * * *"
+  jobTemplate:
+    metadata:
+      labels:
+        app: alert-cronjob
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: alert-cronjob
+            image: alpine
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: ["sh", "-c"]
+            args:
+            - cd /tmp;
+              wget -q https://github.com/fullstorydev/grpcurl/releases/download/v1.8.2/grpcurl_1.8.2_linux_arm64.tar.gz;
+              tar xvfz grpcurl_1.8.2_linux_arm64.tar.gz;
+              /tmp/grpcurl -plaintext core.risken.svc.cluster.local:8080 core.alert.AlertService.AnalyzeAlertAll;
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: iam-cronjob
+  namespace: risken
+  labels:
+    app: iam-cronjob
+spec:
+  schedule: "0 */8 * * *" # every per 8 hours
+  jobTemplate:
+    metadata:
+      labels:
+        app: iam-cronjob
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: iam-cronjob
+            image: alpine
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: ["sh", "-c"]
+            args:
+            - cd /tmp;
+              wget -q https://github.com/fullstorydev/grpcurl/releases/download/v1.8.2/grpcurl_1.8.2_linux_arm64.tar.gz;
+              tar xvfz grpcurl_1.8.2_linux_arm64.tar.gz;
+              /tmp/grpcurl -plaintext core.risken.svc.cluster.local:8080 core.iam.IAMService.AnalyzeTokenExpiration;
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: report-cronjob
+  namespace: risken
+  labels:
+    app: report
+spec:
+  # The time zone must be set in UTC.(For JST, set +0900)
+  # @see https://kubernetes.io/ja/docs/concepts/workloads/controllers/cron-jobs/ 
+  schedule: "00 15 * * *"
+  jobTemplate:
+    metadata:
+      labels:
+        app: report
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: report-cronjob
+            image: alpine
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: ["sh", "-c"]
+            args:
+            - cd /tmp;
+              wget -q https://github.com/fullstorydev/grpcurl/releases/download/v1.8.2/grpcurl_1.8.2_linux_arm64.tar.gz;
+              tar xvfz grpcurl_1.8.2_linux_arm64.tar.gz;
+              /tmp/grpcurl -plaintext core.risken.svc.cluster.local:8080 core.report.ReportService.CollectReportFinding;
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: purge-core-cronjob
+  namespace: risken
+  labels:
+    app: purge-core
+spec:
+  schedule: "00 03 * * *" # UTC
+  jobTemplate:
+    metadata:
+      labels:
+        app: purge-core
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: purge-core-cronjob
+            image: fullstorydev/grpcurl
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: [
+              "grpcurl",
+              "-plaintext",
+              "core.risken.svc.cluster.local:8080",
+              "core.project.ProjectService.CleanProject",
+            ]
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: aws-cronjob
+  namespace: risken
+  labels:
+    app: aws
+spec:
+  # The time zone must be set in UTC.(For JST, set +0900)
+  # @see https://kubernetes.io/ja/docs/concepts/workloads/controllers/cron-jobs/ 
+  schedule: "30 15 * * *" 
+  jobTemplate:
+    metadata:
+      labels:
+        app: aws
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: aws-cronjob
+            image: fullstorydev/grpcurl
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: [
+              "grpcurl",
+              "-plaintext",
+              "datasource-api.risken.svc.cluster.local:8081",
+              "datasource.aws.AWSService.InvokeScanAll",
+            ]
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: azure-cronjob
+  namespace: risken
+  labels:
+    app: azure
+spec:
+  # The time zone must be set in UTC.(For JST, set +0900)
+  # @see https://kubernetes.io/ja/docs/concepts/workloads/controllers/cron-jobs/ 
+  schedule: "25 17 * * *" 
+  jobTemplate:
+    metadata:
+      labels:
+        app: azure
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: azure-cronjob
+            image: fullstorydev/grpcurl
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: [
+              "grpcurl",
+              "-plaintext",
+              "datasource-api.risken.svc.cluster.local:8081",
+              "datasource.azure.AzureService.InvokeScanAll",
+            ]
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: code-cronjob
+  namespace: risken
+  labels:
+    app: code
+spec:
+  # The time zone must be set in UTC.(For JST, set +0900)
+  # @see https://kubernetes.io/ja/docs/concepts/workloads/controllers/cron-jobs/ 
+  schedule: "15 17 * * *" 
+  jobTemplate:
+    metadata:
+      labels:
+        app: code
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: code-cronjob
+            image: fullstorydev/grpcurl
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: [
+              "grpcurl",
+              "-plaintext",
+              "datasource-api.risken.svc.cluster.local:8081",
+              "datasource.code.CodeService.InvokeScanAll",
+            ]
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: diagnosis-cronjob
+  namespace: risken
+  labels:
+    app: diagnosis
+spec:
+  # The time zone must be set in UTC.(For JST, set +0900)
+  # @see https://kubernetes.io/ja/docs/concepts/workloads/controllers/cron-jobs/
+  schedule: "05 17 * * *"
+  jobTemplate:
+    metadata:
+      labels:
+        app: diagnosis
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: diagnosis-cronjob
+            image: fullstorydev/grpcurl
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: [
+              "grpcurl",
+              "-plaintext",
+              "datasource-api.risken.svc.cluster.local:8081",
+              "datasource.diagnosis.DiagnosisService.InvokeScanAll",
+            ]
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: google-cronjob
+  namespace: risken
+  labels:
+    app: google
+spec:
+  # The time zone must be set in UTC.(For JST, set +0900)
+  # @see https://kubernetes.io/ja/docs/concepts/workloads/controllers/cron-jobs/ 
+  schedule: "20 17 * * *" 
+  jobTemplate:
+    metadata:
+      labels:
+        app: google
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: google-cronjob
+            image: fullstorydev/grpcurl
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: [
+              "grpcurl",
+              "-plaintext",
+              "datasource-api.risken.svc.cluster.local:8081",
+              "datasource.google.GoogleService.InvokeScanAll",
+            ]
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: osint-cronjob
+  namespace: risken
+  labels:
+    app: osint
+spec:
+  # The time zone must be set in UTC.(For JST, set +0900)
+  # @see https://kubernetes.io/ja/docs/concepts/workloads/controllers/cron-jobs/
+  schedule: "10 17 * * *"
+  jobTemplate:
+    metadata:
+      labels:
+        app: osint
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: osint-cronjob
+            image: fullstorydev/grpcurl
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: [
+              "grpcurl",
+              "-plaintext",
+              "datasource-api.risken.svc.cluster.local:8081",
+              "datasource.osint.OsintService.InvokeScanAll",
+            ]
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: purge-datasource-cronjob
+  namespace: risken
+  labels:
+    app: purge-datasource
+spec:
+  schedule: "00 03 * * *" # UTC
+  jobTemplate:
+    metadata:
+      labels:
+        app: purge-datasource
+    spec:
+      template:
+        spec:
+          serviceAccountName: risken
+          containers:
+          - name: purge-datasource-cronjob
+            image: fullstorydev/grpcurl
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1
+              requests:
+                memory: 200Mi
+                cpu: 100m
+            command: [
+              "grpcurl",
+              "-plaintext",
+              "datasource-api.risken.svc.cluster.local:8081",
+              "datasource.DataSourceService.CleanDataSource",
+            ]
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - all
+          restartPolicy: Never

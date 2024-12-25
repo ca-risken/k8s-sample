@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-guardduty
+  namespace: risken
+  labels:
+    app: aws-guardduty
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aws-guardduty
+  template:
+    metadata:
+      labels:
+        app: aws-guardduty
+    spec:
+      serviceAccountName: risken
+      containers:
+        - name: aws-guardduty
+          image: 'public.ecr.aws/risken/aws/guardduty:latest'
+          resources:
+            limits:
+              memory: 400Mi
+              cpu: 200m
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          ports:
+            - containerPort: 9002
+              name: guardduty
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'region-code'
+            - name: ENV_INJECTOR_META_CONFIG
+              value: '/env/meta/aws/guardduty'
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+               - all

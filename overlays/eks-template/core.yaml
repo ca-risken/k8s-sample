@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: core
-  namespace: core
+  namespace: risken
   labels:
     version: 'latest'
 spec:
@@ -42,5 +42,5 @@ $patch: delete
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: core
-  namespace: core
+  name: risken
+  namespace: risken

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: core
+  namespace: risken
+  labels:
+    app: core
+spec:
+  clusterIP: None
+  selector:
+    app: core
+  ports:
+    - name: core
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
